@@ -7,8 +7,8 @@
 <title>작성 테스트</title>
 </head>
 <body>
-	<form action="./writeDB" method="post">
-		<input type="text" name="test">
+	<form method="post">
+		<input type="text" name="testText">
 		<input type="submit">
 	</form>
 </body>

@@ -17,7 +17,7 @@ import com.my.service.testService;
 import com.my.service.testServiceInterface;
 
 @Controller
-@RequestMapping(value = "/test", method = RequestMethod.GET)
+@RequestMapping(value = "/test")//method 구분이 없으면 method 구분없이 받는다.
 public class testController {
 	
 	@Autowired
@@ -26,22 +26,21 @@ public class testController {
 	@Inject
 	private testServiceInterface service;
 	
-	//write
+	//write - get
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String getWrite() throws Exception {
-		
-		return "/test/write";
+	public void getWrite() throws Exception {
+		System.out.println("start /test/write.jsp - method : get");
 	}
 	
-	//writeDB
-	@RequestMapping(value = "/writeDB", method = RequestMethod.POST)
-	public String getWriteDB(@RequestParam("test") String test) throws Exception {
-		System.out.println("확인점 1-1 : "+test);//성공
-		testVO vo=new testVO(test);
-		//System.out.println("확인점 1-2 : "+vo.getTest());//성공
-		System.out.println("확인점 1-2 : "+vo);//성공
+	//write - post, sql - insert
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String postWrite(@RequestParam("testText") String testText) throws Exception {
+		System.out.println("start /test/write.jsp - method : post");
+		System.out.println("DB 값 넘기기");
+		
+		testVO vo=new testVO(testText);
 		service.insertTest(vo);
 		
-		return "redirect:/test/write";
+		return "redirect:/";
 	}
 }
