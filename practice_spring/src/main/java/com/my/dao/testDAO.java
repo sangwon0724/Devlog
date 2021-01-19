@@ -29,7 +29,7 @@ public class testDAO implements testDAOInterFace {
 	@Override
 	public void insertTest(testVO vo) throws Exception {
 		sqlSession.insert("studyMapper.insertTest", vo);
-		sqlSession.commit();
+		//sqlSession.commit();
 	}
 
 }

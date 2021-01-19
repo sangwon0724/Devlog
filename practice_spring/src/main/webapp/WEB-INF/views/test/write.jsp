@@ -11,5 +11,6 @@
 		<input type="text" name="testText">
 		<input type="submit">
 	</form>
+            <a href="/">home으로 이동</a>
 </body>
 </html>
