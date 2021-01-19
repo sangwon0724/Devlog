@@ -13,6 +13,9 @@
         SELECT * FROM TEST
     </select>-->
     <insert id="insertTest" parameterType="com.my.vo.testVO">
-    	insert into test values (#{test})
+    	insert into test(test) values (#{test})
     </insert>
+    <update id="updateTest">
+    	update test set test=#{test} where test=#{test}
+    </update>
 </mapper> 

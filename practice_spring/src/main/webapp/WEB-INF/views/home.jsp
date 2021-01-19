@@ -14,6 +14,7 @@
 			<c:forEach items="${testList}" var="test">
                     ${test.test}
             </c:forEach>
+            <a href="/test/write">write로 이동</a>
 </body>
 </html>
  

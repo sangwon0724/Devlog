@@ -10,4 +10,9 @@ public class testVO {
 	public void setTest(String test) {
 		this.test = test;
 	}
+	
+	//생성자
+	public testVO(String test) {
+		this.test=test;
+	}
 }
