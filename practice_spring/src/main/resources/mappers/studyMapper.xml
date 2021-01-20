@@ -21,4 +21,7 @@
     <update id="updateTest">
     	update test set test=#{test} where no=#{no}
     </update>
+    <delete id="deleteTest">
+    	delete from test where no=#{no}
+    </delete>
 </mapper> 

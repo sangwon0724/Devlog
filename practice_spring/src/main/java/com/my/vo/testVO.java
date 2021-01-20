@@ -25,6 +25,11 @@ public class testVO {
 		this.test=test;
 	}
 	
+	//생성자 - delete시 사용
+	public testVO(int no) {
+		this.no=no;
+	}
+	
 	//생성자 - select시 사용
 	public testVO(int no, String test) {
 		this.no=no;

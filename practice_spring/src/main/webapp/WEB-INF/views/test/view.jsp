@@ -10,5 +10,6 @@
 <body>
     <c:out value="${testVO.test}" escapeXml="false"/>
     <a href="./write_${testVO.no}"><input type="button" value="write로 이동 (update)"></a>
+    <a href="./delete_${testVO.no}"><input type="button" value="게시글 삭제"></a>
 </body>
 </html>

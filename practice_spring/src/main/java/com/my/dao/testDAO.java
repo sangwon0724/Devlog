@@ -38,8 +38,15 @@ public class testDAO implements testDAOInterFace {
 		//sqlSession.commit();
 	}
 
+	//수정
 	@Override
 	public void updateTest(testVO vo) throws Exception {
 		sqlSession.update("studyMapper.updateTest", vo);
+	}
+
+	//삭제
+	@Override
+	public void deleteTest(testVO vo) throws Exception {
+		sqlSession.delete("studyMapper.deleteTest", vo);
 	}
 }

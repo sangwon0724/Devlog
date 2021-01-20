@@ -34,8 +34,15 @@ public class testService implements testServiceInterface {
 		dao.insertTest(vo);
 	}
 
+	//수정
 	@Override
 	public void updateTest(testVO vo) throws Exception {
 		dao.updateTest(vo);
+	}
+
+	//삭제
+	@Override
+	public void deleteTest(testVO vo) throws Exception {
+		dao.deleteTest(vo);
 	}
 }

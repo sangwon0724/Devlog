@@ -86,4 +86,16 @@ public class testController {
 			
 		return "redirect:/";
 	}
+	
+	
+	//delete
+	@RequestMapping(value = "/delete_{no}", method = RequestMethod.GET)
+	public String getDelete(@PathVariable String no) throws Exception {
+		System.out.println("start delete from test- method : get");
+			
+		testVO vo=new testVO(Integer.parseInt(no));
+		service.deleteTest(vo);
+			
+		return "redirect:/test/list";
+	}
 }
