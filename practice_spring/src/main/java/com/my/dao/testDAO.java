@@ -24,6 +24,12 @@ public class testDAO implements testDAOInterFace {
 	public List<testVO> selectTest() throws Exception {
 		return sqlSession.selectList("studyMapper.selectTest");
 	}
+
+	//한 개만 출력
+	@Override
+	public testVO selectOneTest(String str) throws Exception {
+		return sqlSession.selectOne("studyMapper.selectOneTest",str);
+	}
 	
 	//삽입
 	@Override
@@ -32,4 +38,8 @@ public class testDAO implements testDAOInterFace {
 		//sqlSession.commit();
 	}
 
+	@Override
+	public void updateTest(testVO vo) throws Exception {
+		sqlSession.update("studyMapper.updateTest", vo);
+	}
 }

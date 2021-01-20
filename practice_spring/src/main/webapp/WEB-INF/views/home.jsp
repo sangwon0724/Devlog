@@ -11,9 +11,10 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. <br> 안녕</P>
-			<c:forEach items="${testList}" var="test">
-                    ${test.test}
+			<c:forEach items="${testList}" var="testVO">
+                    ${testVO.test}
             </c:forEach>
+            <a href="/test/list">list로 이동</a>
             <a href="/test/write">write로 이동</a>
 </body>
 </html>

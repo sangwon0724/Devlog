@@ -5,13 +5,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>작성 테스트</title>
+<title>test 테이블 - view</title>
 </head>
 <body>
-	<form method="post">
-		<input type="text" name="testText" value="<c:out value="${testVO.test}" escapeXml="false"/>">
-		<input type="submit">
-	</form>
-            <a href="/">home으로 이동</a>
+    <c:out value="${testVO.test}" escapeXml="false"/>
+    <a href="./write_${testVO.no}"><input type="button" value="write로 이동 (update)"></a>
 </body>
 </html>

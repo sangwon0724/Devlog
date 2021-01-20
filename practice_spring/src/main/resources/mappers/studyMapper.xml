@@ -12,10 +12,13 @@
      <!--<select id="selectTest" resultType="testVO">
         SELECT * FROM TEST
     </select>-->
+    <select id="selectOneTest" resultType="com.my.vo.testVO" parameterType="java.lang.String">
+      	SELECT * FROM TEST where no=#{no}
+    </select>
     <insert id="insertTest" parameterType="com.my.vo.testVO">
     	insert into test(test) values (#{test})
     </insert>
     <update id="updateTest">
-    	update test set test=#{test} where test=#{test}
+    	update test set test=#{test} where no=#{no}
     </update>
 </mapper> 

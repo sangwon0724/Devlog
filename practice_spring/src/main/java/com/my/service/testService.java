@@ -16,22 +16,26 @@ public class testService implements testServiceInterface {
 	@Autowired
     private testDAOInterFace dao;
 	
+	//전체 출력
 	@Override
 	public List<testVO> selectTest() throws Exception {
-		// TODO Auto-generated method stub
 		return dao.selectTest();
 	}
 
+	//1개만 출력
+	@Override
+	public testVO selectOneTest(String str) throws Exception {
+		return dao.selectOneTest(str);
+	}
+	
+	//삽입
 	@Override
 	public void insertTest(testVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		System.out.println("확인점 2-1 : "+vo);
-		System.out.println("확인점 2-2 : "+vo.getTest());
-		//int i=dao.insertTest(vo);
-		//System.out.println("dao 실행 결과 : "+i);
-		//return dao.insertTest(vo);
 		dao.insertTest(vo);
-	//	return 1;
 	}
 
+	@Override
+	public void updateTest(testVO vo) throws Exception {
+		dao.updateTest(vo);
+	}
 }
