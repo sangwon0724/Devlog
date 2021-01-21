@@ -16,10 +16,10 @@
       	SELECT * FROM TEST where no=#{no}
     </select>
     <insert id="insertTest" parameterType="com.my.vo.testVO">
-    	insert into test(test) values (#{test})
+    	insert into test(test,note) values (#{test},#{note})
     </insert>
     <update id="updateTest">
-    	update test set test=#{test} where no=#{no}
+    	update test set test=#{test},note=#{note} where no=#{no}
     </update>
     <delete id="deleteTest">
     	delete from test where no=#{no}

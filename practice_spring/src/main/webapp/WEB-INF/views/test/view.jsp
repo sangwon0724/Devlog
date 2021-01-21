@@ -8,7 +8,10 @@
 <title>test 테이블 - view</title>
 </head>
 <body>
-    <c:out value="${testVO.test}" escapeXml="false"/>
+    <span>no : </span><c:out value="${testVO.no}" escapeXml="false"/><br>
+    <span>test : </span><c:out value="${testVO.test}" escapeXml="false"/><br>
+    <span>note : </span><c:out value="${testVO.note}" escapeXml="false"/><br>
+    <a href="./list"><input type="button" value="list로 이동"></a>
     <a href="./write_${testVO.no}"><input type="button" value="write로 이동 (update)"></a>
     <a href="./delete_${testVO.no}"><input type="button" value="게시글 삭제"></a>
 </body>

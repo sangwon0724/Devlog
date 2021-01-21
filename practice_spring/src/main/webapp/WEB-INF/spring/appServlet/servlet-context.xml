@@ -23,6 +23,16 @@
 	
 	<context:component-scan base-package="com.my.app" />
 	
+	<!-- 업로드 패스 설정 -->		<!-- 업로드할 패스를 빈에 저장, 의존주입하여 사용 -->
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="C:\Users\you\Desktop\My_Space\GitHub\practice_spring\practice_spring\src\main\webapp\resources\"/>
+	</beans:bean>
 	
+	<!-- 일반 파일 업로드 경로 -->
+	<resources mapping="/image/**" location="/webapp/resources/image/" />	<!-- 주소가 /image/**로 접속될때 처리는  /webapp/resources/image/로 처리(실제경로 숨김) -->
+	
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="maxUploadSize" value="10485660"/> <!-- 파일 크기 제한. 10메가 정도. value는 바이트이다. -->
+	</beans:bean>
 	
 </beans:beans>

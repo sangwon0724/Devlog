@@ -17,5 +17,6 @@
          </div>
          <br/>
     </c:forEach>
+    <a href="/">home으로 이동</a>
 </body>
 </html>
