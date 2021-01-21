@@ -85,37 +85,42 @@ $(document).ready(function() {
 		.note-toolbar>div>div>button>i{color: black;}
 		.note-toolbar>div>div>button>span{color: black;}
 		.note-toolbar>div>button>i{color: black;}
+		.temp {width: 200px; height: 100px; border: 2px solid black;}
 </style>
 
 <title>작성 테스트</title>
 </head>
 <body>
-	<form method="post" name="write__form" enctype="multipart/form-data">
+	<form method="post" name="write__form" enctype="multipart/form-data" onsubmit="write_submit()">
 		<input type="text" name="testText" value="<c:out value="${testVO.test}" escapeXml="false"/>"><br/>
 		<textarea id="summernote" name="summernote" class="editordata">${testVO.note}</textarea>
 		<%=request.getRealPath("/")%>
-		<input type="submit">
+		<div class="temp" onclick="write_submit()">등록</div>
 	</form>
     <a href="/">home으로 이동</a>
     
 	<script>
 		function write_submit(){
 			var Lf = document.write__form;
-			var title = write__form.title.value;
-			var comment = write__form.summernote.value;
-			if (!title)
+			var testText = write__form.testText.value;
+			var summernote = write__form.summernote.value;
+			if (!testText)
 			{
-				alert("제목을 입력해주세요");
-				write__form.title.focus();
-				if (!comment)
-				{
-					alert("글 내용을 입력해주세요");
-					write__form.summernote.focus();
-				}
+				alert("testText를 입력해주세요");
+				write__form.testText.focus();
+				return;
 			}
 			else
 			{
-				Lf.submit();
+				if (!summernote)
+				{
+					alert("글 내용을 입력해주세요");
+					write__form.summernote.focus();
+					return;
+				}
+				else{
+					Lf.submit();
+				}
 			}
 		}
 	</script>

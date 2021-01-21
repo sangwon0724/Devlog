@@ -9,6 +9,7 @@ import java.util.UUID;//서머노트
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;//서머노트
 
 import org.apache.commons.io.FileUtils;//서머노트
 import org.apache.ibatis.session.SqlSession;
@@ -72,7 +73,7 @@ public class testController {
 		System.out.println("start write from test - method : post");
 		System.out.println("DB 값 넘기기");
 		
-		String imgUploadPath = uploadPath + File.separator + "image";	//파일이 저장될 기본이 되는 폴더 . image라는 폴더에 저장됨.
+		/*String imgUploadPath = uploadPath + File.separator + "image";	//파일이 저장될 기본이 되는 폴더 . image라는 폴더에 저장됨.
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
 		
@@ -80,7 +81,7 @@ public class testController {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 		}else {
 			fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
-		}
+		}*/
 		testVO vo=new testVO(testText,note);
 		service.insertTest(vo);
 		
@@ -127,12 +128,11 @@ public class testController {
 		JsonObject jsonObject = new JsonObject();
 		
 		// 외부경로로 저장을 희망할때.
-		String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image\\";
-		//String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image";
+		//String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image\\";
 		
 		// 내부경로로 저장
-		//String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		//String fileRoot = contextRoot+"resources/fileupload/";
+		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+		String fileRoot = contextRoot+"resources/image/";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
@@ -142,7 +142,9 @@ public class testController {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("url", "/resources/image/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			//jsonObject.addProperty("url", fileRoot+savedFileName); 
+			System.out.println(fileRoot+savedFileName);//경로 및 파일명 출력
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {
