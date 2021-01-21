@@ -25,7 +25,7 @@ function uploadImageFile(file, editor) {
 	$.ajax({
 		data : data,
 		type : "POST",
-		url : "image",	
+		url : "./image",	
 		dataType:'json',
 	    async: true,
 		processData: false,		
@@ -37,9 +37,9 @@ function uploadImageFile(file, editor) {
 	    		   // 1초 후 작동해야할 코드
 	    		alert(data.url);
 	    		$(editor).summernote('insertImage', data.url);
-	    		if(document.getElementById('sumnail').value=="null"){
+	    		/*if(document.getElementById('sumnail').value=="null"){
 	    			document.getElementById('sumnail').value=data.url;	
-	    		}
+	    		}*/
 	    		
 	    		   }, 1000);  	
 	    	
@@ -93,6 +93,7 @@ $(document).ready(function() {
 	<form method="post" name="write__form" enctype="multipart/form-data">
 		<input type="text" name="testText" value="<c:out value="${testVO.test}" escapeXml="false"/>"><br/>
 		<textarea id="summernote" name="summernote" class="editordata">${testVO.note}</textarea>
+		<%=request.getRealPath("/")%>
 		<input type="submit">
 	</form>
     <a href="/">home으로 이동</a>

@@ -1,12 +1,16 @@
 package com.my.app;
 
 import java.io.File;//파일 업로드
+import java.io.IOException;//서머노트
+import java.io.InputStream;//서머노트
 import java.util.List;
+import java.util.UUID;//서머노트
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FileUtils;//서머노트
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;//서머노트
 import org.springframework.web.multipart.MultipartFile;//파일 업로드
 
 import com.my.vo.testVO;
+import com.google.gson.JsonObject;//서머노트
 import com.my.service.testService;
 import com.my.service.testServiceInterface;
 import com.my.util.UploadFileUtils;
@@ -75,7 +81,6 @@ public class testController {
 		}else {
 			fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
 		}
-		
 		testVO vo=new testVO(testText,note);
 		service.insertTest(vo);
 		
@@ -114,5 +119,38 @@ public class testController {
 		service.deleteTest(vo);
 			
 		return "redirect:/test/list";
+	}
+	
+	@RequestMapping(value="/image", produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+		JsonObject jsonObject = new JsonObject();
+		
+		// 외부경로로 저장을 희망할때.
+		String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image\\";
+		//String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image";
+		
+		// 내부경로로 저장
+		//String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+		//String fileRoot = contextRoot+"resources/fileupload/";
+		
+		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
+		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
+		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		
+		File targetFile = new File(fileRoot + savedFileName);	
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+			jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("responseCode", "success");
+				
+		} catch (IOException e) {
+			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
+		}
+		String a = jsonObject.toString();
+		return a;
 	}
 }
