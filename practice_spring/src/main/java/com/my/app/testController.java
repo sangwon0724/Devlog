@@ -28,10 +28,9 @@ import com.my.vo.testVO;
 import com.google.gson.JsonObject;//서머노트
 import com.my.service.testService;
 import com.my.service.testServiceInterface;
-import com.my.util.UploadFileUtils;
 
 @Controller
-@RequestMapping(value = "/test")//method 구분이 없으면 method 구분없이 받는다.
+@RequestMapping(value = "/test")
 public class testController {
 	
 	@Autowired
@@ -42,6 +41,13 @@ public class testController {
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;
+	
+	//공부 요소 목록
+	//1. @RequestMapping(value = "/test")처럼 method 구분이 없으면 method 구분없이 받는다.
+	//2. @RequestParam의 경우에는 form에서 name의 값을 받아온다.
+	//3. view나 delete같은 경우에는 vo로 받는게 아닌 @RequestParam나 @PathVariable으로 받는게 좋다.
+	//4. @PathVariable는 write_{no}와 같은 경로로 매핑을 받을 때  @PathVariable int no처럼 인자를 받아서 사용한다.
+	//5. 인자로 vo를 사용할 때에는 vo의 속성값들의 이름이 form 태그에서 쓰이는 각 요소들의 name과 일치해야 한다.
 	
 	//list-get
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -54,7 +60,7 @@ public class testController {
 	
 	//view-get
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("no") String no, Model model) throws Exception {
+	public void getView(@RequestParam("no") int no, Model model) throws Exception {
 		System.out.println("start view from test - method : get");
 			
 		testVO vo = service.selectOneTest(no);
@@ -69,20 +75,10 @@ public class testController {
 	
 	//write - post, sql - insert
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String postWrite(@RequestParam("testText") String testText, @RequestParam("summernote") String note, MultipartFile file) throws Exception {
+	public String postWrite(testVO vo) throws Exception {
 		System.out.println("start write from test - method : post");
 		System.out.println("DB 값 넘기기");
 		
-		/*String imgUploadPath = uploadPath + File.separator + "image";	//파일이 저장될 기본이 되는 폴더 . image라는 폴더에 저장됨.
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-		String fileName = null;
-		
-		if(file != null) {
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-		}else {
-			fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
-		}*/
-		testVO vo=new testVO(testText,note);
 		service.insertTest(vo);
 		
 		return "redirect:/";
@@ -90,7 +86,7 @@ public class testController {
 	
 	//update - get
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.GET)
-	public String getUpdate(@PathVariable String no, Model model) throws Exception {
+	public String getUpdate(@PathVariable int no, Model model) throws Exception {
 		System.out.println("start update from test - method : get");
 		testVO vo = service.selectOneTest(no);
 		model.addAttribute("testVO", vo);
@@ -100,24 +96,22 @@ public class testController {
 		
 	//update - post, sql - update
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.POST)
-	public String postUpdate(@PathVariable String no, @RequestParam("testText") String testText, @RequestParam("summernote") String note) throws Exception {
-		System.out.println("start update from test- method : post");
+	public String postUpdate(testVO vo) throws Exception {
+		System.out.println("start update from test - method : post");
 		System.out.println("DB 값 넘기기");
-			
-		testVO vo=new testVO(Integer.parseInt(no),testText,note);
+		
 		service.updateTest(vo);
 			
-		return "redirect:/";
+		return "redirect:/test/list";
 	}
 	
 	
 	//delete
 	@RequestMapping(value = "/delete_{no}", method = RequestMethod.GET)
-	public String getDelete(@PathVariable String no) throws Exception {
+	public String getDelete(@PathVariable int no) throws Exception {
 		System.out.println("start delete from test- method : get");
-			
-		testVO vo=new testVO(Integer.parseInt(no));
-		service.deleteTest(vo);
+		
+		service.deleteTest(no);
 			
 		return "redirect:/test/list";
 	}
@@ -128,7 +122,7 @@ public class testController {
 		JsonObject jsonObject = new JsonObject();
 		
 		// 외부경로로 저장을 희망할때.
-		//String fileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image\\";
+		//String realFileRoot = "C:\\Users\\you\\Desktop\\My_Space\\GitHub\\practice_spring\\practice_spring\\src\\main\\webapp\\resources\\image\\";
 		
 		// 내부경로로 저장
 		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
@@ -138,7 +132,8 @@ public class testController {
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
 		
-		File targetFile = new File(fileRoot + savedFileName);	
+		File targetFile = new File(fileRoot + savedFileName);
+		//File targetFile = new File(realFileRoot+ savedFileName);//테스트	
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장

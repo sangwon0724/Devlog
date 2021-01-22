@@ -24,8 +24,8 @@ public class testService implements testServiceInterface {
 
 	//1개만 출력
 	@Override
-	public testVO selectOneTest(String str) throws Exception {
-		return dao.selectOneTest(str);
+	public testVO selectOneTest(int i) throws Exception {
+		return dao.selectOneTest(i);
 	}
 	
 	//삽입
@@ -42,7 +42,7 @@ public class testService implements testServiceInterface {
 
 	//삭제
 	@Override
-	public void deleteTest(testVO vo) throws Exception {
-		dao.deleteTest(vo);
+	public void deleteTest(int i) throws Exception {
+		dao.deleteTest(i);
 	}
 }

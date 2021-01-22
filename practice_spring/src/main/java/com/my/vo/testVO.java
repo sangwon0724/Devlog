@@ -4,6 +4,7 @@ public class testVO {
 	private int no;
 	private String test;
 	private String note;
+	
 	public int getNo() {
 		return no;
 	}
@@ -28,7 +29,10 @@ public class testVO {
 		this.note = note;
 	}
 
-
+	public testVO() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	//생성자 - insert시 사용
 	public testVO(String test, String note) {
 		this.test=test;

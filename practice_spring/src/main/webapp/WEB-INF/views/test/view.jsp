@@ -8,8 +8,8 @@
 <title>test 테이블 - view</title>
 </head>
 <body>
-    <span>no : </span><c:out value="${testVO.no}" escapeXml="false"/><br>
-    <span>test : </span><c:out value="${testVO.test}" escapeXml="false"/><br>
+    <span>no : </span>${testVO.no}<br>
+    <span>test : </span>${testVO.test}<br>
     <span>note : </span><c:out value="${testVO.note}" escapeXml="false"/><br>
     <a href="./list"><input type="button" value="list로 이동"></a>
     <a href="./write_${testVO.no}"><input type="button" value="write로 이동 (update)"></a>

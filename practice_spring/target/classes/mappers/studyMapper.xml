@@ -12,7 +12,7 @@
      <!--<select id="selectTest" resultType="testVO">
         SELECT * FROM TEST
     </select>-->
-    <select id="selectOneTest" resultType="com.my.vo.testVO" parameterType="java.lang.String">
+    <select id="selectOneTest" resultType="com.my.vo.testVO" parameterType="java.lang.Integer">
       	SELECT * FROM TEST where no=#{no}
     </select>
     <insert id="insertTest" parameterType="com.my.vo.testVO">

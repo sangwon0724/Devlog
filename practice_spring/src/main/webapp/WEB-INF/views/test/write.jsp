@@ -92,8 +92,9 @@ $(document).ready(function() {
 </head>
 <body>
 	<form method="post" name="write__form" enctype="multipart/form-data" onsubmit="write_submit()">
-		<input type="text" name="testText" value="<c:out value="${testVO.test}" escapeXml="false"/>"><br/>
-		<textarea id="summernote" name="summernote" class="editordata">${testVO.note}</textarea>
+		<input type="hidden" name="no" value=${testVO.no}>
+		<input type="text" name="test" value="<c:out value="${testVO.test}" escapeXml="false"/>"><br/>
+		<textarea id="summernote" name="note" class="editordata">${testVO.note}</textarea>
 		<%=request.getRealPath("/")%>
 		<div class="temp" onclick="write_submit()">등록</div>
 	</form>
@@ -102,20 +103,20 @@ $(document).ready(function() {
 	<script>
 		function write_submit(){
 			var Lf = document.write__form;
-			var testText = write__form.testText.value;
-			var summernote = write__form.summernote.value;
-			if (!testText)
+			var test = write__form.test.value;
+			var note = write__form.note.value;
+			if (!test)
 			{
 				alert("testText를 입력해주세요");
-				write__form.testText.focus();
+				write__form.test.focus();
 				return;
 			}
 			else
 			{
-				if (!summernote)
+				if (!note)
 				{
 					alert("글 내용을 입력해주세요");
-					write__form.summernote.focus();
+					write__form.note.focus();
 					return;
 				}
 				else{

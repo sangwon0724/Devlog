@@ -27,8 +27,8 @@ public class testDAO implements testDAOInterFace {
 
 	//한 개만 출력
 	@Override
-	public testVO selectOneTest(String str) throws Exception {
-		return sqlSession.selectOne("studyMapper.selectOneTest",str);
+	public testVO selectOneTest(int i) throws Exception {
+		return sqlSession.selectOne("studyMapper.selectOneTest",i);
 	}
 	
 	//삽입
@@ -46,7 +46,7 @@ public class testDAO implements testDAOInterFace {
 
 	//삭제
 	@Override
-	public void deleteTest(testVO vo) throws Exception {
-		sqlSession.delete("studyMapper.deleteTest", vo);
+	public void deleteTest(int i) throws Exception {
+		sqlSession.delete("studyMapper.deleteTest", i);
 	}
 }
