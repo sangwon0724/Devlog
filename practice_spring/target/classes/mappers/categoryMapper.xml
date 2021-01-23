@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="categoryMapper">
+    <select id="selectTest" resultType="com.my.vo.categoryVO" >
+      		SELECT * FROM TEST
+    </select>
+    <select id="selectOneTest" resultType="com.my.vo.categoryVO" parameterType="java.lang.Integer">
+      	SELECT * FROM TEST where no=#{no}
+    </select>
+    <insert id="insertTest" parameterType="com.my.vo.categoryVO">
+    	insert into test(test,note) values (#{test},#{note})
+    </insert>
+    <update id="updateTest">
+    	update test set test=#{test},note=#{note} where no=#{no}
+    </update>
+    <delete id="deleteTest">
+    	delete from test where no=#{no}
+    </delete>
+</mapper>

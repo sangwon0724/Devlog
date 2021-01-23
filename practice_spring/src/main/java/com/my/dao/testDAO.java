@@ -22,31 +22,31 @@ public class testDAO implements testDAOInterFace {
 	//목록 출력
 	@Override
 	public List<testVO> selectTest() throws Exception {
-		return sqlSession.selectList("studyMapper.selectTest");
+		return sqlSession.selectList("testMapper.selectTest");
 	}
 
 	//한 개만 출력
 	@Override
 	public testVO selectOneTest(int i) throws Exception {
-		return sqlSession.selectOne("studyMapper.selectOneTest",i);
+		return sqlSession.selectOne("testMapper.selectOneTest",i);
 	}
 	
 	//삽입
 	@Override
 	public void insertTest(testVO vo) throws Exception {
-		sqlSession.insert("studyMapper.insertTest", vo);
+		sqlSession.insert("testMapper.insertTest", vo);
 		//sqlSession.commit();
 	}
 
 	//수정
 	@Override
 	public void updateTest(testVO vo) throws Exception {
-		sqlSession.update("studyMapper.updateTest", vo);
+		sqlSession.update("testMapper.updateTest", vo);
 	}
 
 	//삭제
 	@Override
 	public void deleteTest(int i) throws Exception {
-		sqlSession.delete("studyMapper.deleteTest", i);
+		sqlSession.delete("testMapper.deleteTest", i);
 	}
 }
