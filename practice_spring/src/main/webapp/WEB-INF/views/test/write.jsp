@@ -91,7 +91,7 @@ $(document).ready(function() {
 <title>작성 테스트</title>
 </head>
 <body>
-	<form method="post" name="write__form" enctype="multipart/form-data" onsubmit="write_submit()">
+	<form method="post" name="write__form" enctype="multipart/form-data">
 		<input type="hidden" name="no" value=${testVO.no}>
 		<input type="text" name="test" value="<c:out value="${testVO.test}" escapeXml="false"/>"><br/>
 		<textarea id="summernote" name="note" class="editordata">${testVO.note}</textarea>

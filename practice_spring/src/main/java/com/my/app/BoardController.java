@@ -41,6 +41,7 @@ public class BoardController {
 	//2. update 완성
 	//3. delete 완성
 	//4. list에 페이징 기능 추가, list에 @RequestParam(value="subject",defaultValue="All") String subject랑  @RequestParam(value="page",defaultValue=1) int page 추가
+	//5. 직접 주소 이동시 로그인 페이지로 유도 - write와 update에 대해서 적용, image는 적용해야 되나 모르겠다.
 	
 	//list-get
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -64,7 +65,7 @@ public class BoardController {
 		//model.addAttribute("boardVO", vo);
 	}
 	
-	//write - get
+	//write - get, 직접 주소 이동시 로그인 페이지로 유도
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
 		System.out.println("start write from board - method : get");
@@ -81,7 +82,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
-	//update - get
+	//update - get, 직접 주소 이동시 로그인 페이지로 유도
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.GET)
 	public String getUpdate(@PathVariable int no, Model model) throws Exception {
 		System.out.println("start update from board - method : get");
@@ -104,7 +105,7 @@ public class BoardController {
 	}
 	
 	
-	//delete
+	//delete, 직접 주소 이동시 로그인 페이지로 유도
 	@RequestMapping(value = "/delete_{no}", method = RequestMethod.GET)
 	public String getDelete(@PathVariable int no) throws Exception {
 		System.out.println("start delete from board- method : get");

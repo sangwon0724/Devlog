@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>마이페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
 

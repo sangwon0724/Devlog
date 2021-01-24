@@ -8,6 +8,7 @@ public class boardVO {
 	private String text;
 	private String category;
 	private Date signdate;
+	private String userID;
 	
 	public int getNo() {
 		return no;
@@ -38,6 +39,12 @@ public class boardVO {
 	}
 	public void setSigndate(Date signdate) {
 		this.signdate = signdate;
+	}
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 	
 }

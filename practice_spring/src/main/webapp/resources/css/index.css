@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* 공통 부분 */
+@import "./include/nav.css";
+
+/* 각 페이지의 css */
+@import "user.css";
+@import "mypage.css";
+
+/* 공통 태그의 css */
+
+* {
+  	box-sizing: border-box;
+}
+
+html {
+  	width: 100vw;
+  	height: auto;
+  	min-height: 100vh;
+  	overflow-x: hidden;
+}
+
+body{
+	width: 100%;
+	height: auto;
+	background-color: purple; /*테스트*/
+}
+
+body>#content{
+	width: 100%;
+	height : auto;
+	min-height: 91.5vh;
+	position : absolute;
+	top : 8.5vh;
+	left : 0;
+	background-color: gray; /*테스트*/
+}
