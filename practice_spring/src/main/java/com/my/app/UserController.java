@@ -35,6 +35,7 @@ public class UserController {
 	private categoryServiceInterface categoryService;
 	
 	//할 일 목록
+	//7. 카테고리 삭제시 관련 게시글 삭제 (분류값이랑 아이디값 받아서 처리)
 	
 	//완료한 일 목록
 	//1. 로그인 기능 구현
