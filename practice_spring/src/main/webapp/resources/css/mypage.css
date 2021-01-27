@@ -1,1 +1,40 @@
 @charset "utf-8";
+
+/* 메인 섹션 */
+.mypageContent{
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+
+/* 작업 목록 (include) */
+.mypageTask{
+  width: 13vw; height: 91.5vh;
+  background-color: gray;
+  margin: 0; padding: 0;
+  list-style-type: none;
+  position: fixed; top: 8.5vh; left: 0;
+  z-index: 3;
+  display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(3,1fr);
+}
+.mypageTask>.task{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background-color:white;/* 임시, 테스트 */
+}
+.mypageTask>.categoryList{
+	border-top: 0.5px solid black;
+	border-bottom: 0.5px solid black;
+}
+.changePW.selectTask, .categoryList.selectTask, .categoryAdd.selectTask{
+	background-color:gray;/* 임시, 테스트, 선택시 색상 */
+}
+
+/* 실제 작업 화면 */
+.mypageMain{
+	width: 87vw; height: auto;
+	min-height: 91.5vh;
+	background-color: blue;
+}

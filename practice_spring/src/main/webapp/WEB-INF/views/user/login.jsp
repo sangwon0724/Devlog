@@ -15,17 +15,31 @@
 	<section id="content">
 		<c:if test="${result eq 'fail'}">
 			<script>
-				alert("로그인에 실패하였습니다. 잘못 입력한 값이 존재합니다.");
+				setTimeout("timer_alert()", 500);
+				function timer_alert(){
+					alert("로그인에 실패하였습니다. 잘못 입력한 값이 존재합니다.");
+				}
 			</script>
 		</c:if>
 		<c:if test="${result eq 'need'}">
 			<script>
-				alert("로그인이 필요한 서비스 입니다.");
+				setTimeout("timer_alert()", 500);
+				function timer_alert(){
+					alert("로그인이 필요한 서비스 입니다.");
+				}
+			</script>
+		</c:if>
+		<c:if test="${result eq 'noSession'}">
+			<script>
+				setTimeout("timer_alert()", 500);
+				function timer_alert(){
+					alert("로그인 세션이 사라졌습니다. 다시 로그인 해주시길 바랍니다.");
+				}
 			</script>
 		</c:if>
 		<form name="login__form" method="post">
 			<input type="text" name="id">
-			<input type="password" name="pw">
+			<input type="password" name="pw" onkeyup="enterkey()">
 			<div class="temp" onclick="login_submit()">로그인</div>
 		</form>
 	</section>
@@ -52,6 +66,13 @@
 					login__form.submit();
 				}
 			}
+		}
+		
+		//엔터키가 눌렸을 때  실행
+		function enterkey() {
+	        if (window.event.keyCode == 13) {
+	        	login_submit();
+	        }
 		}
 	</script>
 </body>

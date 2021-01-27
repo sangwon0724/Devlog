@@ -18,8 +18,8 @@
         </c:when>
 	 	<c:when test="${not empty sessionScope.user.id}">
             <nav class="nav existSession">
-            	<div class="nav_logo"><span>로고</span></div>
-            	<div class="nav_blank"><span>${sessionScope.user.userName} 님 환영합니다. }</span></div>
+            	<div class="nav_logo"><span onclick="goHome()">로고</span></div>
+            	<div class="nav_blank"><span>${sessionScope.user.userName} 님 환영합니다.</span></div>
             	<div class="nav_btnSpace_existSession"><button onclick="goMyPage()">마이페이지</button><button onclick="goLogout()">로그아웃</button></div>
 			</nav>
         </c:when>

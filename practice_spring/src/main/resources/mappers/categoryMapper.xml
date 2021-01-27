@@ -4,19 +4,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categoryMapper">
-    <select id="selectTest" resultType="com.my.vo.categoryVO" >
-      		SELECT * FROM TEST
+    <select id="selectCategory" resultType="com.my.vo.categoryVO">
+      		SELECT * FROM category where userID=#{userID} order by orderNo
     </select>
-    <select id="selectOneTest" resultType="com.my.vo.categoryVO" parameterType="java.lang.Integer">
-      	SELECT * FROM TEST where no=#{no}
+    <select id="selectCategoryOne" resultType="com.my.vo.categoryVO">
+      		SELECT * FROM category where userID=#{userID} and categoryName=#{categoryName}
     </select>
-    <insert id="insertTest" parameterType="com.my.vo.categoryVO">
-    	insert into test(test,note) values (#{test},#{note})
+    <insert id="insertCategory" parameterType="com.my.vo.categoryVO">
+    	INSERT INTO category(categoryName,categoryNameKor,orderNo,userID)
+		VALUES(#{categoryName},#{categoryNameKor},
+		(SELECT IFNULL(MAX(orderNo) + 1, 1) FROM category c WHERE userID=#{userID}),#{userID});
     </insert>
-    <update id="updateTest">
-    	update test set test=#{test},note=#{note} where no=#{no}
+    <update id="moveUp" parameterType="com.my.vo.categoryVO">
+    	call moveUp(#{orderNo},#{userID})
     </update>
-    <delete id="deleteTest">
-    	delete from test where no=#{no}
+    <update id="moveDown" parameterType="com.my.vo.categoryVO">
+    	call moveDown(#{orderNo},#{userID})
+    </update>
+    <delete id="deleteList" parameterType="com.my.vo.categoryVO">
+    	call deleteList(#{orderNo},#{userID})
     </delete>
 </mapper>

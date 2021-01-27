@@ -29,6 +29,7 @@
 	align-items : center;
 	background-color: red; /*테스트*/
 }
+.nav_logo>span{cursor: pointer;}
 
 /* 공백 영역 (공통 사용) */
 .nav_blank{

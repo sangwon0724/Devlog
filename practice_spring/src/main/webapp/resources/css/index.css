@@ -2,6 +2,7 @@
 
 /* 공통 부분 */
 @import "./include/nav.css";
+@import "./include/footer.css";
 
 /* 각 페이지의 css */
 @import "user.css";
@@ -34,4 +35,5 @@ body>#content{
 	top : 8.5vh;
 	left : 0;
 	background-color: gray; /*테스트*/
+	z-index: 1;
 }
