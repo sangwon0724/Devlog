@@ -14,6 +14,11 @@ public class categoryService implements categoryServiceInterface {
     private categoryDAOInterface dao;
 	
 	@Override
+	public List<categoryVO> selectCategoryList() throws Exception {
+		return dao.selectCategoryList();
+	}
+	
+	@Override
 	public List<categoryVO> selectCategory(String userID) throws Exception {
 		return dao.selectCategory(userID);
 	}
@@ -36,6 +41,16 @@ public class categoryService implements categoryServiceInterface {
 	@Override
 	public void moveDown(categoryVO vo) throws Exception {
 		dao.moveDown(vo);
+	}
+
+	@Override
+	public void countUp(categoryVO vo) throws Exception {
+		dao.countUp(vo);
+	}
+
+	@Override
+	public void countDown(categoryVO vo) throws Exception {
+		dao.countDown(vo);
 	}
 
 	@Override

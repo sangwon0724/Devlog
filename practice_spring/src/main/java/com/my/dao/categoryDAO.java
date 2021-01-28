@@ -13,7 +13,11 @@ public class categoryDAO implements categoryDAOInterface {
 	
 	@Autowired
     private SqlSession sqlSession;
-	
+
+	@Override
+	public List<categoryVO> selectCategoryList() throws Exception {
+		return sqlSession.selectList("categoryMapper.selectCategoryList");
+	}
 	@Override
 	public List<categoryVO> selectCategory(String userID) throws Exception {
 		return sqlSession.selectList("categoryMapper.selectCategory",userID);
@@ -39,6 +43,16 @@ public class categoryDAO implements categoryDAOInterface {
 	@Override
 	public void moveDown(categoryVO vo) throws Exception {
 		sqlSession.update("categoryMapper.moveDown", vo);
+	}
+
+	@Override
+	public void countUp(categoryVO vo) throws Exception {
+		sqlSession.update("categoryMapper.countUp", vo);
+	}
+
+	@Override
+	public void countDown(categoryVO vo) throws Exception {
+		sqlSession.update("categoryMapper.countDown", vo);
 	}
 
 	@Override

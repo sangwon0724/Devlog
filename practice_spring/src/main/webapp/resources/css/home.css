@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+/* 실제 작업 화면 */
+.homeMain{
+	width: 87vw; height: auto;
+	min-height: 91.5vh;
+	background-color: blue;
+}

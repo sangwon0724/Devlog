@@ -15,8 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.my.service.testService;
-import com.my.vo.testVO;
+import com.my.service.categoryServiceInterface;
+import com.my.vo.categoryVO;
 
 /**
  * Handles requests for the application home page.
@@ -31,7 +31,7 @@ public class HomeController {
 	 */
 	
 	 @Autowired
-	 private testService service;
+	 private categoryServiceInterface categoryService;
 	 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception {
@@ -42,12 +42,22 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		List<testVO> testList = service.selectTest();
-	    model.addAttribute("testList", testList);
+		//메뉴용
+		List<categoryVO> categoryList = categoryService.selectCategoryList();
+	    model.addAttribute("categoryList", categoryList);
 	    
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	@RequestMapping(value = "/include/boardList", method = RequestMethod.GET)
+	public String getBoardList(Model model) throws Exception {
+		//메뉴용
+		List<categoryVO> categoryList = categoryService.selectCategoryList();
+	    model.addAttribute("categoryList", categoryList);
+	    
+	    return "/include/boardList";
 	}
 	
 }

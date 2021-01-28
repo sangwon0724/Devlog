@@ -4,6 +4,7 @@ public class categoryVO {
 	private String categoryName;
 	private String categoryNameKor;
 	private int orderNo;
+	private int postCount;
 	private String userID;
 	
 	public void setCategoryName(String categoryName) {
@@ -23,6 +24,12 @@ public class categoryVO {
 	}
 	public int getOrderNo() {
 		return orderNo;
+	}
+	public int getPostCount() {
+		return postCount;
+	}
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
 	}
 	public String getUserID() {
 		return userID;

@@ -8,7 +8,7 @@
 <title>카테고리 리스트 뷰</title>
 <style type="text/css">
 	/* 화면 잘리는 거 방지용 */
-	.blank {width: 100%; height: 50px;background-color: blue;}
+	.blank {width: 100%; height: 50px;}
 	.category_view_line {width: 100%; height: 50px; display: flex; justify-content: space-between; align-items: center; background-color: red;}
 </style>
 </head>
@@ -34,6 +34,6 @@
 		</div>
 		<br>
 	</c:forEach>
-	<div class="blank"></div>  <!-- 공간 짤리는 문제 해결용 -->
+	<div class="blank"></div>  <!-- 공간 짤림 방지용 -->
 </body>
 </html>

@@ -4,22 +4,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categoryMapper">
+    <select id="selectCategoryList" resultType="com.my.vo.categoryVO">
+      	SELECT * FROM category order by orderNo
+    </select>
     <select id="selectCategory" resultType="com.my.vo.categoryVO">
-      		SELECT * FROM category where userID=#{userID} order by orderNo
+      	SELECT * FROM category where userID=#{userID} order by orderNo
     </select>
     <select id="selectCategoryOne" resultType="com.my.vo.categoryVO">
-      		SELECT * FROM category where userID=#{userID} and categoryName=#{categoryName}
+      	SELECT * FROM category where userID=#{userID} and categoryName=#{categoryName}
     </select>
     <insert id="insertCategory" parameterType="com.my.vo.categoryVO">
-    	INSERT INTO category(categoryName,categoryNameKor,orderNo,userID)
+    	INSERT INTO category(categoryName,categoryNameKor,orderNo,postCount,userID)
 		VALUES(#{categoryName},#{categoryNameKor},
-		(SELECT IFNULL(MAX(orderNo) + 1, 1) FROM category c WHERE userID=#{userID}),#{userID});
+		(SELECT IFNULL(MAX(orderNo) + 1, 1) FROM category c WHERE userID=#{userID}),0,#{userID});
     </insert>
     <update id="moveUp" parameterType="com.my.vo.categoryVO">
     	call moveUp(#{orderNo},#{userID})
     </update>
     <update id="moveDown" parameterType="com.my.vo.categoryVO">
     	call moveDown(#{orderNo},#{userID})
+    </update>
+    <update id="countUp" parameterType="com.my.vo.categoryVO">
+    	update category set postCount=MAX(postCount) + 1 WHERE userID=#{userID} and categoryName=#{categoryName}
+    </update>
+    <update id="countDown" parameterType="com.my.vo.categoryVO">
+    	update category set postCount=MAX(postCount) - 1 WHERE userID=#{userID} and categoryName=#{categoryName}
     </update>
     <delete id="deleteList" parameterType="com.my.vo.categoryVO">
     	call deleteList(#{orderNo},#{userID})

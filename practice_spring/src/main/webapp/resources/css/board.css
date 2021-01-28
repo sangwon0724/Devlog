@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+/* 메인 섹션 */
+.boardContent{
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+/* 게시판 목록 (include) */
+.boardList{
+  width: 13vw; height: 91.5vh;
+  background-color: gray;
+  margin: 0; padding: 0;
+  list-style-type: none;
+  position: fixed; top: 8.5vh; left: 0;
+  z-index: 3;
+  display: flex; flex-direction: column; justify-content: space-around; align-items: center;
+}
+.boardList>iframe{
+	height : 91.5vh;
+	border : none;
+}
+
+/* 실제 작업 화면 */
+.boardMain{
+	width: 87vw; height: auto;
+	min-height: 91.5vh;
+	background-color: blue;/*임시*/
+}
+/* 글쓰기 */
+.boardMain>.write{
+	width : 100%; height: 7vh;
+	display: flex; justify-content: flex-end; align-items: center;
+	padding-right: 3vw;
+	background-color: lightblue;/*임시*/
+}
+/* 게시글 목록 */
+.boardMain>.postList{
+	width : 100%; height: auto; min-height: 84.5vh;
+	background-color: yellowgreen;/*임시*/
+}
+
+/* 게시글 작성 페이지 */
+.boardWrite{
+	width: 100%; height: auto;
+	min-height: 91.5vh;
+	background-color: gray;/*임시*/
+}

@@ -5,8 +5,10 @@
 @import "./include/footer.css";
 
 /* 각 페이지의 css */
+@import "home.css";
 @import "user.css";
 @import "mypage.css";
+@import "board.css";
 
 /* 공통 태그의 css */
 

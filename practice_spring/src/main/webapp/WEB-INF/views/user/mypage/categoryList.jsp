@@ -8,6 +8,8 @@
 	<link href="${pageContext.request.contextPath}/resources/css/index.css" rel="stylesheet" type="text/css">
 	<style type="text/css">
 		#category_iframe {border : none;}
+		/* 공간 짤림 방지용 */
+		.blank {width: 100%; height: 50px;}
 	</style>
 	<title>카테고리 관리</title>
 </head>
