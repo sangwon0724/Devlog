@@ -26,7 +26,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.my.service.boardServiceInterface;
+import com.my.service.categoryServiceInterface;
 import com.my.vo.boardVO;
+import com.my.vo.categoryVO;
 import com.my.vo.userVO;
 
 @Controller
@@ -39,25 +41,33 @@ public class BoardController {
 	@Inject
 	private boardServiceInterface boardService;
 	
-	//할 일 목록
+	@Inject
+	private categoryServiceInterface categoryService;
+	
+	//==========할 일 목록==========
+	//4. list에 페이징 기능 추가
+	//4+. page 값을 input hidden으로 해서 페이징 부분을 form으로 해서 post로 전달하기
+	
+	//==========완료 목록==========
 	//1. write 완성
 	//2. update 완성
 	//3. delete 완성
-	//4. list에 페이징 기능 추가, list에 @RequestParam(value="subject",defaultValue="All") String subject랑  @RequestParam(value="page",defaultValue=1) int page 추가
-	//4+. page 값을 input hidden으로 해서 페이징 부분을 form으로 해서 post로 전달하기
-	//5. 직접 주소 이동시 로그인 페이지로 유도 - write와 update에 대해서 적용, image는 적용해야 되나 모르겠다.
 	
 	//list-get
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void getList(@RequestParam("category") String category, Model model) throws Exception {
+	public void getList(@RequestParam("category") String category, @RequestParam(value="page",defaultValue="1") int page, Model model) throws Exception {
 		System.out.println("start list from board - method : get");
 			
 		List<boardVO> boardList;
 		
-		//if(subject.equals("All")){boardList = boardService.selectListAll(page);}
-		//else{boardList = boardService.selectListSubject(page);}
+		boardList=boardService.selectPost(category);
+		
+		int totalPostCount=categoryService.selectPostCount(category);
 		
 		model.addAttribute("category", category);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("totalPostCount", totalPostCount);
+		model.addAttribute("currentPage", page);
 	}
 	
 	//view-get
@@ -65,8 +75,8 @@ public class BoardController {
 	public void getView(@RequestParam("no") int no, Model model) throws Exception {
 		System.out.println("start view from board - method : get");
 			
-		//boardVO vo = boardService.selectOneTest(no);
-		//model.addAttribute("boardVO", vo);
+		boardVO vo = boardService.selectOnePost(no);
+		model.addAttribute("boardVO", vo);
 	}
 	
 	//write - get, 직접 주소 이동시 로그인 페이지로 유도
@@ -97,10 +107,16 @@ public class BoardController {
 			rttr.addFlashAttribute("result", "noSession");
 			return "redirect:/user/login";
 		}
+		vo.setUserID(tempUser.getId());
 		
-		//boardService.insertTest(vo);
+		categoryVO tempCategory = new categoryVO();
+		tempCategory.setCategoryName(vo.getCategory());
+		tempCategory.setUserID(tempUser.getId());
 		
-		return "redirect:/";
+		boardService.insertPost(vo);
+		categoryService.countUp(tempCategory);
+		
+		return "redirect:/board/list?category="+vo.getCategory();
 	}
 	
 	//update - get, 직접 주소 이동시 로그인 페이지로 유도
@@ -115,32 +131,48 @@ public class BoardController {
 			return "redirect:/user/login";
 		}
 		
-		//boardVO vo = boardService.selectOneTest(no);
-		//model.addAttribute("boardVO", vo);
+		boardVO vo = boardService.selectOnePost(no);
+		model.addAttribute("boardVO", vo);
 		
 		return "/board/write";
 	}
 		
 	//update - post, sql - update
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.POST)
-	public String postUpdate(boardVO vo) throws Exception {
+	public String postUpdate(boardVO vo, @RequestParam("category") String category) throws Exception {
 		System.out.println("start update from board - method : post");
 		System.out.println("DB 값 넘기기");
 		
-		//boardService.updateTest(vo);
+		boardService.updatePost(vo);
 			
-		return "redirect:/board/list";
+		return "redirect:/board/list?category="+category;
 	}
 	
 	
-	//delete, 직접 주소 이동시 로그인 페이지로 유도
+	//delete, 세션 부재시 login으로 유도
 	@RequestMapping(value = "/delete_{no}", method = RequestMethod.GET)
-	public String getDelete(@PathVariable int no) throws Exception {
+	public String getDelete(HttpServletRequest request, RedirectAttributes rttr, @PathVariable int no, @RequestParam("category") String category) throws Exception {
 		System.out.println("start delete from board- method : get");
 		
-		//boardService.deleteTest(no);
+		HttpSession session = request.getSession();
+		userVO tempUser=(userVO)session.getAttribute("user");
+		if(tempUser==null) {
+			rttr.addFlashAttribute("result", "noSession");
+			return "redirect:/user/login";
+		}
+				
+		boardVO tempBoard = new boardVO();
+		tempBoard.setNo(no);
+		tempBoard.setUserID(tempUser.getId());
+		
+		categoryVO tempCategory = new categoryVO();
+		tempCategory.setCategoryName(category);
+		tempCategory.setUserID(tempUser.getId());
+		
+		boardService.deletePost(tempBoard);
+		categoryService.countDown(tempCategory);
 			
-		return "redirect:/board/list";
+		return "redirect:/board/list?category="+category;
 	}
 	
 	@RequestMapping(value="/image", produces = "application/json; charset=utf8")

@@ -29,6 +29,7 @@
 			<form method="post">
 				<input type="hidden" name="category_function" value="deleteList">
 				<input type="hidden" name="orderNo" value=${categoryVO.orderNo}>
+				<input type="hidden" name="categoryName" value="${categoryVO.categoryName}">
 				<input type="submit" value="❌">
 			</form>
 		</div>

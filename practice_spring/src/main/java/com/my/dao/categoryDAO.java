@@ -29,6 +29,11 @@ public class categoryDAO implements categoryDAOInterface {
 		if(temp!=null) {return "overlap";}
 		return "none";
 	}
+	
+	@Override
+	public int selectPostCount(String categoryName) throws Exception {
+		return sqlSession.selectOne("categoryMapper.selectCount",categoryName);
+	}
 
 	@Override
 	public void insertCategory(categoryVO vo) throws Exception {
@@ -59,5 +64,4 @@ public class categoryDAO implements categoryDAOInterface {
 	public void deleteList(categoryVO vo) throws Exception {
 		sqlSession.delete("categoryMapper.deleteList", vo);
 	}
-
 }

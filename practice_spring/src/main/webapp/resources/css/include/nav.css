@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-.nav {
+.navigation {
   width: 100%; height: 8.5vh;
   min-height: 54px;
   background-color: #333;
@@ -11,12 +11,12 @@
 }
 
 /* 로그인 전 */
-.nav.noneSession{
+.navigation.noneSession{
   display: grid; grid-template-columns: 13vw 74.8vw 12.2vw; grid-template-rows: 1fr;
 }
 
 /* 로그인 후 */
-.nav.existSession{
+.navigation.existSession{
   display: grid; grid-template-columns: 13vw 63vw 24vw; grid-template-rows: 1fr;
 }
 

@@ -20,6 +20,9 @@
 	height : 91.5vh;
 	border : none;
 }
+.notThisBoard{
+	text-decoration: none;
+}
 
 /* 실제 작업 화면 */
 .boardMain{
@@ -40,9 +43,8 @@
 	background-color: yellowgreen;/*임시*/
 }
 
-/* 게시글 작성 페이지 */
+/* 게시글 작성 페이지용 섹션*/
 .boardWrite{
 	width: 100%; height: auto;
 	min-height: 91.5vh;
-	background-color: gray;/*임시*/
 }

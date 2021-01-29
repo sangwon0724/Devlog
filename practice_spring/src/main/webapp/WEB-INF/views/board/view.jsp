@@ -15,11 +15,16 @@
 <section id="content" class="boardContent">
 		<aside class="boardList">
 			<!-- 카테고리 목록 시작 -->
-				<iframe id="category_iframe" width="100%" height="auto" scrolling="yes" src="../include/boardList"></iframe>
+				<iframe id="category_iframe" width="100%" height="auto" scrolling="yes" src="../include/boardList?category=${boardVO.category}"></iframe>
 			<!-- 카테고리 목록 종료 -->
 		</aside>
 		<section class="boardMain">
-			게시글 내용
+			내용 : ${boardVO.text}<br>
+			<a href="./write_${boardVO.no}?category=${boardVO.category}">
+				<input type="button" value="/boardVO/write로 이동 (update)">
+			</a>
+			<br>
+    		<a href="./delete_${boardVO.no}?category=${boardVO.category}"><input type="button" value="게시글 삭제"></a>
 		</section>
 	</section>
 </body>

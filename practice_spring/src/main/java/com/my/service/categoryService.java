@@ -27,6 +27,11 @@ public class categoryService implements categoryServiceInterface {
 	public String selectCategoryOne(categoryVO vo) throws Exception {
 		return dao.selectCategoryOne(vo);
 	}
+	
+	@Override
+	public int selectPostCount(String categoryName) throws Exception {
+		return dao.selectPostCount(categoryName);
+	}
 
 	@Override
 	public void insertCategory(categoryVO vo) throws Exception {

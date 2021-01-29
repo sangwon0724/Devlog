@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
+	<link href="${pageContext.request.contextPath}/resources/css/index.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	a {margin: 10px auto 0 auto;}
 </style>
@@ -13,7 +14,9 @@
 <body>
 	<br>
 	<c:forEach items="${categoryList}" var="categoryVO">
-    	<a href="javascript:void(0)" onclick="goBoard('${categoryVO.categoryName}')">${categoryVO.categoryNameKor} (${categoryVO.postCount})</a><br><br>
+    	<a href="javascript:void(0)" onclick="goBoard('${categoryVO.categoryName}')"
+    	<c:if test="${param.category ne categoryVO.categoryName}"> class="notThisBoard"</c:if>
+    	>${categoryVO.categoryNameKor} (${categoryVO.postCount})</a><br><br>
     </c:forEach>
 	<div class="blank"></div>  <!-- 공간 짤림 방지용 -->
     <script>

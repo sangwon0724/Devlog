@@ -13,6 +13,9 @@
     <select id="selectCategoryOne" resultType="com.my.vo.categoryVO">
       	SELECT * FROM category where userID=#{userID} and categoryName=#{categoryName}
     </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+      	SELECT postCount FROM category where categoryName=#{categoryName}
+    </select>
     <insert id="insertCategory" parameterType="com.my.vo.categoryVO">
     	INSERT INTO category(categoryName,categoryNameKor,orderNo,postCount,userID)
 		VALUES(#{categoryName},#{categoryNameKor},
@@ -25,10 +28,12 @@
     	call moveDown(#{orderNo},#{userID})
     </update>
     <update id="countUp" parameterType="com.my.vo.categoryVO">
-    	update category set postCount=MAX(postCount) + 1 WHERE userID=#{userID} and categoryName=#{categoryName}
+    	update category set postCount=(select MAX(postCount) from category c where categoryName=#{categoryName}) + 1
+    	WHERE userID=#{userID} and categoryName=#{categoryName}
     </update>
     <update id="countDown" parameterType="com.my.vo.categoryVO">
-    	update category set postCount=MAX(postCount) - 1 WHERE userID=#{userID} and categoryName=#{categoryName}
+    	update category set postCount=(select MAX(postCount) from category c where categoryName=#{categoryName}) - 1
+    	WHERE userID=#{userID} and categoryName=#{categoryName}
     </update>
     <delete id="deleteList" parameterType="com.my.vo.categoryVO">
     	call deleteList(#{orderNo},#{userID})

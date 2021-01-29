@@ -26,7 +26,6 @@ html {
 body{
 	width: 100%;
 	height: auto;
-	background-color: purple; /*테스트*/
 }
 
 body>#content{
@@ -36,6 +35,10 @@ body>#content{
 	position : absolute;
 	top : 8.5vh;
 	left : 0;
-	background-color: gray; /*테스트*/
 	z-index: 1;
+}
+
+/* 마우스 오버시 누르기 모양으로 변경 */
+.cursorPointer{
+	cursor: pointer;
 }

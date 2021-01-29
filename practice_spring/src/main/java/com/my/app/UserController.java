@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.my.service.boardService;
+import com.my.service.boardServiceInterface;
 import com.my.service.categoryServiceInterface;
 import com.my.service.userServiceInterface;
+import com.my.vo.boardVO;
 import com.my.vo.categoryVO;
 import com.my.vo.userVO;
 
@@ -34,18 +37,21 @@ public class UserController {
 	@Inject
 	private categoryServiceInterface categoryService;
 	
-	//할 일 목록
-	//7. 카테고리 삭제시 관련 게시글 삭제 (분류값이랑 아이디값 받아서 처리)
+	@Inject
+	private boardServiceInterface boardService;
 	
-	//완료한 일 목록
+	//==========할 일 목록==========
+	
+	//==========완료 목록=======
 	//1. 로그인 기능 구현
 	//2. 직접 경로로 로그인 필요 서비스에 이동 시 로그인 페이지로 유도 => url이 직접 노출되는 일부의 get 방식의 함수에 적용 (login이나 logout같은 url이 보여도 크게 상관없으면 적용 안함)
 	//3. 비밀번호 변경 구현
 	//4. 카테고리 추가 기능
 	//5. 카테고리 순서 변경 기능
 	//6. 카테고리 삭제 기능
+	//7. 카테고리 삭제시 관련 게시글 삭제 (분류값이랑 아이디값 받아서 처리)
 	
-	//공부 요소 목록
+	//==========공부 요소 목록=======
 	//1. redirect 시킬 때는 RedirectAttributes의 addFlashAttribute로 인자를 전달한다.
 	//2. rediect가 아닐 때는 Model의 addAttribute로 인자를 전달한다.
 	//3. 1과 2의 방법 모두 url에 인자가 표시되지 않는다.
@@ -175,7 +181,8 @@ public class UserController {
 	
 	//categoryView-post
 	@RequestMapping(value = "/mypage/categoryView", method = RequestMethod.POST)
-	public String postCategoryView(HttpServletRequest request, @RequestParam("category_function") String category_function, @RequestParam("orderNo") int orderNo) throws Exception {
+	public String postCategoryView(HttpServletRequest request, @RequestParam("category_function") String category_function,
+			@RequestParam("orderNo") int orderNo, @RequestParam("categoryName") String categoryName) throws Exception {
 		System.out.println("start login from user/categoryView - method : post");
 		
 		HttpSession session = request.getSession();
@@ -191,7 +198,12 @@ public class UserController {
 			categoryService.moveDown(tempCategory);
 		}
 		if(category_function.equals("deleteList")) {
-			categoryService.deleteList(tempCategory);
+			boardVO tempBoard = new boardVO();
+			tempBoard.setCategory(categoryName);
+			tempBoard.setUserID(tempUser.getId());
+			
+			categoryService.deleteList(tempCategory);//카테고리 테이블에서 해당 카테고리 삭제
+			boardService.deleteCategory(tempBoard);//게시판 테이블에서 해당 카테고리를 가지고 있는 게시글 삭제
 		}
 		
 		return "redirect:/user/mypage/categoryView";

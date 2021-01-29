@@ -4,19 +4,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
-      <select id="selectTest" resultType="com.my.vo.boardVO" >
-      		SELECT * FROM TEST
-      </select>
-    <select id="selectOneTest" resultType="com.my.vo.boardVO" parameterType="java.lang.String">
-      	SELECT * FROM TEST where no=#{no}
+    <select id="selectPost" resultType="com.my.vo.boardVO" >
+      		SELECT * FROM board where category=#{category} order by no desc
     </select>
-    <insert id="insertTest" parameterType="com.my.vo.boardVO">
-    	insert into test(test,note) values (#{test},#{note})
+    <select id="selectOnePost" resultType="com.my.vo.boardVO" >
+      		SELECT * FROM board where no=#{no}
+    </select>
+    <insert id="insertPost" parameterType="com.my.vo.boardVO">
+    	insert into board(name, text, category, signdate, userID) values (#{name}, #{text}, #{category}, NOW(), #{userID})
     </insert>
-    <update id="updateTest">
-    	update test set test=#{test},note=#{note} where no=#{no}
+    <update id="updatePost">
+    	update board set name=#{name},text=#{text},signdate=NOW() where no=#{no}
     </update>
-    <delete id="deleteTest">
-    	delete from test where no=#{no}
+    <delete id="deletePost">
+    	delete from board where no=#{no} and userID=#{userID}
+    </delete>
+    <delete id="deleteCategory">
+    	delete from board where category=#{category} and userID=#{userID}
     </delete>
 </mapper>
