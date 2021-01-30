@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -14,40 +15,40 @@
 <!-- 네비게이션 종료 -->
 
 	<!-- 현재 페이지 -->
-    	<c:set var="currentPage" value="${currentPage}"/>
+    	<fmt:parseNumber var="currentPage" value="${currentPage}"/>
     <!-- 한 페이지당 게시글 수 -->
-    	<c:set var="postCountOnePage" value="10"/>
+    	<fmt:parseNumber var="postCountOnePage" value="10"/>
     <!-- 한 챕터당 페이지 수 -->
-    	<c:set var="pageCountOneChapter" value="10"/>
+    	<fmt:parseNumber var="pageCountOneChapter" value="10"/>
     <!-- 전체 게시글 수 -->
-    	<c:set var="totalPostCount" value="${totalPostCount}"/>
+    	<fmt:parseNumber var="totalPostCount" value="${totalPostCount}"/>
     	
     <!-- 현재 챕터 -->
-    	<c:set var="currentChapter" value="${(currentPage-1) div pageCountOneChapter + 1}"/>
+    	<fmt:parseNumber var="currentChapter" value="${(currentPage-1)/pageCountOneChapter + 1}" type="pattern" pattern="0" integerOnly="true"/>
     <!-- 전체페이지 수 -->
     	<c:if test="${totalPostCount%postCountOnePage==0}">
-    		<c:set var="totalPageCount" value="${totalPostCount div postCountOnePage}"/>
+    		<fmt:parseNumber var="totalPageCount" value="${totalPostCount/postCountOnePage}" type="pattern" pattern="0" integerOnly="true"/>
     	</c:if>
     	<c:if test="${totalPostCount%postCountOnePage!=0}">
-    		<c:set var="totalPageCount" value="${totalPostCount div postCountOnePage+1}"/>
+    		<fmt:parseNumber var="totalPageCount" value="${(totalPostCount/postCountOnePage)+1}" type="pattern" pattern="0" integerOnly="true"/>
     	</c:if>
     <!-- 전체 챕터 수  -->
     	<c:if test="${totalPageCount%pageCountOneChapter==0}">
-    		<c:set var="totalPageCount" value="${totalPageCount div pageCountOneChapter}"/>
+    		<fmt:parseNumber var="totalChapter" value="${totalPageCount/pageCountOneChapter}" type="pattern" pattern="0" integerOnly="true"/>
     	</c:if>
     	<c:if test="${totalPageCount%pageCountOneChapter!=0}">
-    		<c:set var="totalPageCount" value="${totalPageCount div pageCountOneChapter+1}"/>
+    		<fmt:parseNumber var="totalChapter" value="${(totalPageCount/pageCountOneChapter)+1}" type="pattern" pattern="0" integerOnly="true"/>
     	</c:if>
     <!-- 페이지 생성 시작값과 종료 값-->
     	<c:if test="${currentPage!=totalPageCount}">
-    		<c:set var="loopStart" value="${(currentPage-1)*postCountOnePage}"/>
-    		<c:set var="loopEnd" value="${currentPage*postCountOnePage-1}"/>
+    		<fmt:parseNumber var="loopStart" value="${(currentPage-1)*postCountOnePage}"/>
+    		<fmt:parseNumber var="loopEnd" value="${currentPage*postCountOnePage-1}"/>
     	</c:if>
     	<c:if test="${currentPage==totalPageCount}">
-    		<c:set var="loopStart" value="${(currentPage-1)*postCountOnePage}"/>
-    		<c:set var="loopEnd" value="${totalPostCount-1}"/>
+    		<fmt:parseNumber var="loopStart" value="${(currentPage-1)*postCountOnePage}"/>
+    		<fmt:parseNumber var="loopEnd" value="${totalPostCount-1}"/>
     	</c:if>
-    	
+    	<fmt:parseNumber var="percent" value="${15/10+1}" integerOnly="true" />
     
 <section id="content" class="boardContent">
 		<aside class="boardList">
@@ -73,9 +74,10 @@
 				
 				현재 챕터 : ${currentChapter}<br>
 				전체페이지 수 : ${totalPageCount}<br>
-				전체 챕터 수 : ${totalPageCount}<br>
+				전체 챕터 수 : ${totalChapter} = (${totalPageCount}/${pageCountOneChapter})+1<br>
 				페이지 생성 시작값 : ${loopStart}<br>
 				페이지 생성 종료값 : ${loopEnd}<br>
+				임시 : ${percent}
 			    <!-- var 뒤에 begin="0" end="10" 추가하기, 당연히 시작은 0부터-->
 			</main>
 			<footer class="page">

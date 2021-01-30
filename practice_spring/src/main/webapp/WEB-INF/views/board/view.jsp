@@ -20,11 +20,14 @@
 		</aside>
 		<section class="boardMain">
 			내용 : ${boardVO.text}<br>
-			<a href="./write_${boardVO.no}?category=${boardVO.category}">
-				<input type="button" value="/boardVO/write로 이동 (update)">
-			</a>
-			<br>
-    		<a href="./delete_${boardVO.no}?category=${boardVO.category}"><input type="button" value="게시글 삭제"></a>
+			
+			<c:if test="${not empty sessionScope.user.id}">
+				<a href="./write_${boardVO.no}?category=${boardVO.category}">
+					<input type="button" value="/boardVO/write로 이동 (update)">
+				</a>
+				<br>
+    			<a href="./delete_${boardVO.no}?category=${boardVO.category}"><input type="button" value="게시글 삭제"></a>
+			</c:if>
 		</section>
 	</section>
 </body>
