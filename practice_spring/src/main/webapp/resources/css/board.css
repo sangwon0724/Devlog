@@ -47,3 +47,9 @@
 	width: 100%; height: auto;
 	min-height: 91.5vh;
 }
+
+/* 페이징 */
+.page{
+	height: 10vh;
+	background-color: white;
+}
