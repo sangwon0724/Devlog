@@ -16,17 +16,17 @@
 	<c:forEach items="${categoryList}" var="categoryVO">
 		<div class="category_view_line">
 			${categoryVO.categoryNameKor}
-			<form method="post">
+			<form method="post" action="./categoryView">
 				<input type="hidden" name="category_function" value="moveUp">
 				<input type="hidden" name="orderNo" value=${categoryVO.orderNo}>
 				<input type="submit" value="🔼">
 			</form>
-			<form method="post">
+			<form method="post" action="./categoryView">
 				<input type="hidden" name="category_function" value="moveDown">
 				<input type="hidden" name="orderNo" value=${categoryVO.orderNo}>
 				<input type="submit" value="🔽">
 			</form>
-			<form method="post">
+			<form method="post" action="./categoryView">
 				<input type="hidden" name="category_function" value="deleteList">
 				<input type="hidden" name="orderNo" value=${categoryVO.orderNo}>
 				<input type="hidden" name="categoryName" value="${categoryVO.categoryName}">

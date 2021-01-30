@@ -17,16 +17,7 @@
 	<div class="task categoryAdd<c:if test="${myTask eq 'categoryAdd'}"> selectTask</c:if>" onclick="goCategoryAdd()">
 		<span>카테고리 추가</span>
 	</div>
-	<script type="text/javascript">
-		function goChangePW(){
-			location.href="/user/mypage/changePW";
-		}
-		function goCategoryList(){
-			location.href="/user/mypage/categoryList";
-		}
-		function goCategoryAdd(){
-			location.href="/user/mypage/categoryAdd";
-		}
-	</script>
+	<!-- Scripts -->
+	<script src="<c:url value="/resources/js/mypage.js" />"></script>
 </body>
 </html>

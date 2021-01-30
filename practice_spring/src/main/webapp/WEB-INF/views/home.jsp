@@ -3,7 +3,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<link href="${pageContext.request.contextPath}/resources/css/index.css" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/resources/css/index.css" />" rel="stylesheet" type="text/css">
 	<title>스프링 연습</title>
 </head>
 <body>
@@ -21,27 +21,8 @@
 		</section>
 	</section>
 	
-	<script type="text/javascript">
-		var iframe = document.getElementById('category_iframe');
-	
-		window.addEventListener('DOMContentLoaded', function () {
-			iframe.addEventListener('load', autoHeight);
-		});
-	
-		function autoHeight() {
-			var frame = iframe;
-		    var sub = frame.contentDocument ? frame.contentDocument : frame.contentWindow.document;
-		    iframe.height = sub.body.scrollHeight;
-		}
-	</script>
-	<c:if test="${result eq 'onlyManager'}">
-		<script>
-			setTimeout("timer_alert()", 500);
-			function timer_alert(){
-				alert("관리자용 페이지입니다.");
-			}
-		</script>
-	</c:if>
+	<!-- Scripts -->
+	<script src="<c:url value="/resources/js/category.js" />"></script>
 </body>
 </html>
  

@@ -9,7 +9,6 @@
 /* 게시판 목록 (include) */
 .boardList{
   width: 13vw; height: 91.5vh;
-  background-color: gray;
   margin: 0; padding: 0;
   list-style-type: none;
   position: fixed; top: 8.5vh; left: 0;

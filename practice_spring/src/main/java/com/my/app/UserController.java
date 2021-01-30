@@ -55,6 +55,7 @@ public class UserController {
 	//1. redirect 시킬 때는 RedirectAttributes의 addFlashAttribute로 인자를 전달한다.
 	//2. rediect가 아닐 때는 Model의 addAttribute로 인자를 전달한다.
 	//3. 1과 2의 방법 모두 url에 인자가 표시되지 않는다.
+	//4. get 방식일때 return을 안 해줘도 model.addAttribute로 값이 들어가니 자료형을 void로 해줘도 된다. (단, redirect가 아닌 경우)
 	
 	//login-get
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -62,7 +63,7 @@ public class UserController {
 		System.out.println("start login from user - method : get");
 	}
 		
-	//login-post
+	//login-post, 세션 부재시 로그인으로 유도
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String postLogin(userVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("start login from user - method : post");
@@ -91,47 +92,27 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	//mypage-get, 직접 주소 이동시 로그인 페이지로 유도
+	//mypage-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/mypage", method = RequestMethod.GET)
-	public String getMypage(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public void getMypage(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("start login from user/mypage - method : get");
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
-		return "/user/mypage/mypage";
 	}
 	
-	//changePW-get, 직접 주소 이동시 로그인 페이지로 유도
+	//changePW-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/changePW", method = RequestMethod.GET)
-	public String getChangePW(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+	public void getChangePW(Model model) throws Exception {
 		System.out.println("start login from user/changePW - method : get");
 		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
 		model.addAttribute("myTask", "changePW");
-		return "/user/mypage/changePW";
 	}
 	
-	//changePW-post, sql - update, 세션 부재시 login으로 유도
+	//changePW-post, sql - update, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/changePW", method = RequestMethod.POST)
 	public String postChangePW(userVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("start login from user/changePW - method : post");
 		
 		HttpSession session = request.getSession();
 		userVO tempUser=(userVO)session.getAttribute("user");
-		if(tempUser==null) {
-			rttr.addFlashAttribute("result", "noSession");
-			return "redirect:/user/login";
-		}
-		
 		vo.setId(tempUser.getId());
 
 		int result=userService.updatePW(vo);
@@ -146,43 +127,33 @@ public class UserController {
 		return "redirect:/user/mypage/changePW";
 	}
 	
-	//categoryList-get, 직접 주소 이동시 로그인 페이지로 유도
+	//categoryList-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryList", method = RequestMethod.GET)
-	public String getCategoryList(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+	public void getCategoryList(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("start login from user/categoryList - method : get");
 		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
 		model.addAttribute("myTask", "categoryList");
-		return "/user/mypage/categoryList";
 	}
 	
-	//categoryView-get, iframe용, 직접 주소 이동시 메인 페이지로 유도
+	//categoryView-get, iframe용, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryView", method = RequestMethod.GET)
-	public String getCategoryView(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+	public void getCategoryView(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("start login from user/categoryView - method : get");
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "onlyManager");
-			return "redirect:/";
-		}
 		userVO temp=(userVO)session.getAttribute("user");
 		
 		List<categoryVO> categoryList=categoryService.selectCategory(temp.getId());
 		model.addAttribute("categoryList", categoryList);
-		
-		return "/user/mypage/categoryView";
 	}
 	
 	//categoryView-post
 	@RequestMapping(value = "/mypage/categoryView", method = RequestMethod.POST)
 	public String postCategoryView(HttpServletRequest request, @RequestParam("category_function") String category_function,
-			@RequestParam("orderNo") int orderNo, @RequestParam("categoryName") String categoryName) throws Exception {
+			@RequestParam("orderNo") int orderNo, @RequestParam(value="categoryName",defaultValue="") String categoryName) throws Exception {
+		System.out.println(category_function);
+		System.out.println(orderNo);
+		System.out.println(categoryName);
 		System.out.println("start login from user/categoryView - method : post");
 		
 		HttpSession session = request.getSession();
@@ -192,6 +163,8 @@ public class UserController {
 		tempCategory.setUserID(tempUser.getId());
 		
 		if(category_function.equals("moveUp")) {
+			System.out.println(tempCategory.getOrderNo());
+			System.out.println(tempCategory.getUserID());
 			categoryService.moveUp(tempCategory);
 		}
 		if(category_function.equals("moveDown")) {
@@ -209,22 +182,15 @@ public class UserController {
 		return "redirect:/user/mypage/categoryView";
 	}
 	
-	//categoryAdd-get, 직접 주소 이동시 로그인 페이지로 유도
+	//categoryAdd-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryAdd", method = RequestMethod.GET)
-	public String getCategoryAdd(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
+	public void getCategoryAdd(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
 		System.out.println("start login from user/categoryAdd - method : get");
 		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
 		model.addAttribute("myTask", "categoryAdd");
-		return "/user/mypage/categoryAdd";
 	}
 	
-	//categoryAdd-post, sql - insert, 세션 부재시 login으로 유도
+	//categoryAdd-post, sql - insert, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryAdd", method = RequestMethod.POST)
 	public String postCategoryAdd(HttpServletRequest request, RedirectAttributes rttr, categoryVO vo) throws Exception {
 		System.out.println("start login from user/categoryAdd - method : post");
@@ -232,12 +198,6 @@ public class UserController {
 		HttpSession session = request.getSession();
 		userVO tempUser=(userVO)session.getAttribute("user");
 
-		//세션 존재 여부 확인
-		if(tempUser==null) {
-			rttr.addFlashAttribute("result", "noSession");
-			return "redirect:/user/login";
-		}
-		
 		//기존 분류명 중에 존재하는가 확인
 		vo.setUserID(tempUser.getId());
 		String overlapTest=categoryService.selectCategoryOne(vo);

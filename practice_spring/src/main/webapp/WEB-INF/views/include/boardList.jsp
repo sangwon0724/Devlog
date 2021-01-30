@@ -5,9 +5,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link href="${pageContext.request.contextPath}/resources/css/index.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	a {margin: 10px auto 0 auto;}
+	body {display: inline-block; overflow-y:hidden;}
+	body:hover {overflow-y:scroll;}
+	body::-webkit-scrollbar { width : 5.5px;}
+	body:hover::-webkit-scrollbar-thumb { background: black; }
+	body:hover::-webkit-scrollbar-track { background: lightgray;}
 </style>
 <title>게시판 목록</title>
 </head>

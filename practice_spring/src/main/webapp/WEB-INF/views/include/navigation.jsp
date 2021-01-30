@@ -24,19 +24,7 @@
 			</div>
         </c:when>
 	</c:choose>
-	<script type="text/javascript">
-		function goHome(){
-			location.href="/";
-		}
-		function goLogin(){
-			location.href="/user/login";
-		}
-		function goMyPage(){
-			location.href="/user/mypage/mypage";
-		}
-		function goLogout(){
-			location.href="/user/logout";
-		}
-	</script>
+	<!-- Scripts -->
+	<script src="<c:url value="/resources/js/navigation.js" />"></script>
 </body>
 </html>

@@ -30,9 +30,26 @@
 	
 	<!-- 일반 파일 업로드 경로 -->
 	<resources mapping="/image/**" location="/resources/image/" />	<!-- 주소가 /image/**로 접속될때 처리는  /resources/image/로 처리(실제경로 숨김) -->
-	
 	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 		<beans:property name="maxUploadSize" value="10485660"/> <!-- 파일 크기 제한. 10메가 정도. value는 바이트이다. -->
 	</beans:bean>
 	
+	<!-- 인터셉터 객체 생성 -->
+    <beans:bean id="authenticationInterceptor" class="com.my.util.urlInterceptor">
+    </beans:bean>
+    <!-- Interceptor 설정 -->
+    <interceptors>
+        <interceptor>
+            <mapping path="/board/write"/>
+            <mapping path="/board/write_{no}"/>
+            <mapping path="/board/delete_{no}"/>
+            <mapping path="/board/image"/>
+            <mapping path="/user/mypage/mypage"/>
+            <mapping path="/user/mypage/changePW"/>
+            <mapping path="/user/mypage/categoryList"/>
+            <mapping path="/user/mypage/categoryView"/>
+            <mapping path="/user/mypage/categoryAdd"/>
+            <beans:ref bean="authenticationInterceptor"/>
+        </interceptor>
+    </interceptors>
 </beans:beans>

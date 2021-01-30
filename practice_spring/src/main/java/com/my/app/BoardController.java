@@ -79,65 +79,44 @@ public class BoardController {
 		model.addAttribute("boardVO", vo);
 	}
 	
-	//write - get, 직접 주소 이동시 로그인 페이지로 유도
+	//write - get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String getWrite(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
+	public void getWrite(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("start write from board - method : get");
-		
-		//로그인 안 되있으면 홈페이지로 이동
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
-		return "/board/write";		
 	}
 	
-	//write - post, sql - insert, 세션 부재시 login으로 유도
+	//write - post, sql - insert, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String postWrite(HttpServletRequest request, RedirectAttributes rttr, boardVO vo) throws Exception {
 		System.out.println("start write from board - method : post");
 		System.out.println("DB 값 넘기기");
 		
-		//세션 부재시 login으로 유도
 		HttpSession session = request.getSession();
-		userVO tempUser=(userVO)session.getAttribute("user");
-		if(tempUser==null) {
-			rttr.addFlashAttribute("result", "noSession");
-			return "redirect:/user/login";
-		}
+		userVO tempUser=(userVO)session.getAttribute("user");//세션에서 id 값 추출
 		vo.setUserID(tempUser.getId());
 		
 		categoryVO tempCategory = new categoryVO();
 		tempCategory.setCategoryName(vo.getCategory());
 		tempCategory.setUserID(tempUser.getId());
 		
-		boardService.insertPost(vo);
-		categoryService.countUp(tempCategory);
+		boardService.insertPost(vo);//게시글 추가
+		categoryService.countUp(tempCategory);//해당 게시판의 총 게시글 수 증가
 		
 		return "redirect:/board/list?category="+vo.getCategory();
 	}
 	
-	//update - get, 직접 주소 이동시 로그인 페이지로 유도
+	//update - get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.GET)
 	public String getUpdate(HttpServletRequest request, RedirectAttributes rttr, @PathVariable int no, Model model) throws Exception {
 		System.out.println("start update from board - method : get");
 
-		//로그인 안 되있으면 홈페이지로 이동
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
-			rttr.addFlashAttribute("result", "need");
-			return "redirect:/user/login";
-		}
-		
 		boardVO vo = boardService.selectOnePost(no);
 		model.addAttribute("boardVO", vo);
 		
 		return "/board/write";
 	}
 		
-	//update - post, sql - update
+	//update - post, sql - update, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/write_{no}", method = RequestMethod.POST)
 	public String postUpdate(boardVO vo, @RequestParam("category") String category) throws Exception {
 		System.out.println("start update from board - method : post");
@@ -149,17 +128,13 @@ public class BoardController {
 	}
 	
 	
-	//delete, 세션 부재시 login으로 유도
+	//delete, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/delete_{no}", method = RequestMethod.GET)
 	public String getDelete(HttpServletRequest request, RedirectAttributes rttr, @PathVariable int no, @RequestParam("category") String category) throws Exception {
 		System.out.println("start delete from board- method : get");
 		
 		HttpSession session = request.getSession();
-		userVO tempUser=(userVO)session.getAttribute("user");
-		if(tempUser==null) {
-			rttr.addFlashAttribute("result", "noSession");
-			return "redirect:/user/login";
-		}
+		userVO tempUser=(userVO)session.getAttribute("user");//세션에서 id 값 추출
 				
 		boardVO tempBoard = new boardVO();
 		tempBoard.setNo(no);
@@ -169,8 +144,8 @@ public class BoardController {
 		tempCategory.setCategoryName(category);
 		tempCategory.setUserID(tempUser.getId());
 		
-		boardService.deletePost(tempBoard);
-		categoryService.countDown(tempCategory);
+		boardService.deletePost(tempBoard);//게시글 삭제
+		categoryService.countDown(tempCategory);//해당 게시판에서 총 게시글 수 감소
 			
 		return "redirect:/board/list?category="+category;
 	}

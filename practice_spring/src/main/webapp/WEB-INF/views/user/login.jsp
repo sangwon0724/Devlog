@@ -29,14 +29,7 @@
 				}
 			</script>
 		</c:if>
-		<c:if test="${result eq 'noSession'}">
-			<script>
-				setTimeout("timer_alert()", 500);
-				function timer_alert(){
-					alert("로그인 세션이 사라졌습니다. 다시 로그인 해주시길 바랍니다.");
-				}
-			</script>
-		</c:if>
+		<c:remove var="result" scope="session" />
 		<form name="login__form" method="post">
 			<input type="text" name="id">
 			<input type="password" name="pw" onkeyup="enterkey()">
