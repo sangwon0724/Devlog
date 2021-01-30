@@ -17,7 +17,7 @@
 	<!-- 현재 페이지 -->
     	<fmt:parseNumber var="currentPage" value="${currentPage}"/>
     <!-- 한 페이지당 게시글 수 -->
-    	<fmt:parseNumber var="postCountOnePage" value="10"/>
+    	<fmt:parseNumber var="postCountOnePage" value="1"/>
     <!-- 한 챕터당 페이지 수 -->
     	<fmt:parseNumber var="pageCountOneChapter" value="10"/>
     <!-- 전체 게시글 수 -->
@@ -48,7 +48,6 @@
     		<fmt:parseNumber var="loopStart" value="${(currentPage-1)*postCountOnePage}"/>
     		<fmt:parseNumber var="loopEnd" value="${totalPostCount-1}"/>
     	</c:if>
-    	<fmt:parseNumber var="percent" value="${15/10+1}" integerOnly="true" />
     
 <section id="content" class="boardContent">
 		<aside class="boardList">
@@ -64,7 +63,7 @@
 			</header>
 			<main class="postList">
 				게시판 : ${category}<br>
-				<c:forEach items="${boardList}" var="boardList" begin="0" end="${totalPostCount}">
+				<c:forEach items="${boardList}" var="boardList" begin="${loopStart}" end="${loopEnd}">
 			    	<a href="/board/view?no=${boardList.no}">제목 : ${boardList.name}</a><br>
 			    </c:forEach>
 			        현재 페이지 : ${currentPage}<br>
@@ -77,16 +76,54 @@
 				전체 챕터 수 : ${totalChapter} = (${totalPageCount}/${pageCountOneChapter})+1<br>
 				페이지 생성 시작값 : ${loopStart}<br>
 				페이지 생성 종료값 : ${loopEnd}<br>
-				임시 : ${percent}
-			    <!-- var 뒤에 begin="0" end="10" 추가하기, 당연히 시작은 0부터-->
 			</main>
 			<footer class="page">
+				<form name="page__form" method="get">
+					<input name="category" type="hidden" value="${param.category}">
+					<input name="page" type="hidden" value="">
+					<!-- 총 페이지 수가 한 챕터당 페이지 수보다 작거나 같은 경우 -->
+					<c:if test="${totalPageCount<=pageCountOneChapter}">
+					      <c:forEach var="i" begin="1" end="${totalPageCount}" step="1">
+								<div onclick="setPage(${i})">${i}</div>
+					      </c:forEach>
+					</c:if>
+					<!-- 총 페이지 수가 한 챕터당 페이지 수보다 큰 경우 -->
+					<c:if test="${totalPageCount>pageCountOneChapter}">
+						<!-- 챕터가 1인 경우 -->
+						<c:if test="${currentChapter == 1}">
+					      		<c:forEach var="i" begin="1" end="10" step="1">
+									<div onclick="setPage(${i})">${i}</div>
+					      		</c:forEach>
+								<div onclick="setPage(11)">다음</div>
+						</c:if>
+						<!-- 챕터가 1보다 크고 현재 챕터가 전체 챕터보다 낮은 경우 -->
+						<c:if test="${currentChapter>1 && currentChapter<totalChapter}">
+								<div onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
+					      		<c:forEach var="i" begin="${(currentChapter-1)*pageCountOneChapter+1}" end="${currentChapter*pageCountOneChapter}" step="1">
+									<div onclick="setPage(${i})">${i}</div>
+					      		</c:forEach>
+								<div onclick="setPage(${pageCountOneChapter*currentChapter+1})">다음</div>
+						</c:if>
+						<!-- 챕터가 1보다 크고 전체 챕터인 경우 -->
+						<c:if test="${currentChapter>1 && currentChapter==totalChapter}">
+								<div onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
+					      		<c:forEach var="i" begin="${(currentChapter-1)*pageCountOneChapter+1}" end="${totalPageCount}" step="1">
+									<div onclick="setPage(${i})">${i}</div>
+					      		</c:forEach>
+						</c:if>
+					</c:if>
+				</form>
 			</footer>
 		</section>
 	</section>
 	<script type="text/javascript">
 		function goWrite(category){
 			location.href="/board/write?category="+category;
+		}
+		
+		function setPage(pageNumber){
+			page__form.page.value=pageNumber;
+			page__form.submit();
 		}
 	</script>
 </body>

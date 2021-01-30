@@ -23,11 +23,6 @@ html {
   	overflow-x: hidden;
 }
 
-body{
-	width: 100%;
-	height: auto;
-}
-
 body>#content{
 	width: 100%;
 	height : auto;
@@ -35,7 +30,6 @@ body>#content{
 	position : absolute;
 	top : 8.5vh;
 	left : 0;
-	z-index: 1;
 }
 
 /* 마우스 오버시 누르기 모양으로 변경 */

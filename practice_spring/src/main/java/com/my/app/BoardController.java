@@ -45,13 +45,12 @@ public class BoardController {
 	private categoryServiceInterface categoryService;
 	
 	//==========할 일 목록==========
-	//4. list에 페이징 기능 추가
-	//4+. page 값을 input hidden으로 해서 페이징 부분을 form으로 해서 post로 전달하기
 	
 	//==========완료 목록==========
 	//1. write 완성
 	//2. update 완성
 	//3. delete 완성
+	//4. list에 페이징 기능 추가
 	
 	//list-get
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
