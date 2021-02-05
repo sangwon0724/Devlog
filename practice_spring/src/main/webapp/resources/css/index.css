@@ -10,6 +10,9 @@
 @import "mypage.css";
 @import "board.css";
 
+/* 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@300;400;500;600;700&display=swap');
+
 /* 공통 태그의 css */
 
 * {

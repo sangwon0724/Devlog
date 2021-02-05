@@ -29,8 +29,8 @@ public class categoryService implements categoryServiceInterface {
 	}
 	
 	@Override
-	public int selectPostCount(String categoryName) throws Exception {
-		return dao.selectPostCount(categoryName);
+	public categoryVO selectCategoryInfo(String categoryName) throws Exception {
+		return dao.selectCategoryInfo(categoryName);
 	}
 
 	@Override

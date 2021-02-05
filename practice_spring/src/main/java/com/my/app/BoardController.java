@@ -61,11 +61,11 @@ public class BoardController {
 		
 		boardList=boardService.selectPost(category);
 		
-		int totalPostCount=categoryService.selectPostCount(category);
+		categoryVO tempCategory=categoryService.selectCategoryInfo(category);
 		
 		model.addAttribute("category", category);
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("totalPostCount", totalPostCount);
+		model.addAttribute("categoryVO", tempCategory);
 		model.addAttribute("currentPage", page);
 	}
 	

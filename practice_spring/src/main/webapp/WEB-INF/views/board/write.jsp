@@ -93,7 +93,7 @@
 <!-- 네비게이션 종료 -->
 <section id="content" class="boardContent">
 		<section class="boardWrite">
-			<form method="post" name="write__form" enctype="multipart/form-data" accept-charset="utf-8">
+			<form method="post" name="write__form" class="write__form" enctype="multipart/form-data" accept-charset="utf-8">
 				<c:if test="${not empty boardVO.no}">
 					<input type="hidden" name="no" value=${boardVO.no}>
 				</c:if>
@@ -104,11 +104,13 @@
 					<input type="hidden" name="category" value=${boardVO.category}>
 				</c:if>
 				
-				<input type="text" name="name" value="<c:out value="${boardVO.name}" escapeXml="false"/>" placeholder="제목을 입력해주세요."><br/>
+				<input type="text" name="name" value="${boardVO.name}" placeholder="제목을 입력해주세요."><br/>
 				<textarea id="summernote" name="text" class="editordata">${boardVO.text}</textarea>
-				<div class="temp" onclick="write_submit()">등록</div>
-	</form>
-    <a href="/">home으로 이동</a>
+				<div class="boardWrite_button">
+					<div onclick="write_submit()">등록</div>
+					<div onclick="goHome()">home으로 이동</div>
+				</div>
+			</form>
 		</section>
 	</section>
     
@@ -132,6 +134,9 @@
 			{
 				write__form.submit();
 			}
+		}
+		function goHome(){
+			location.href="/";
 		}
 	</script>
 </body>

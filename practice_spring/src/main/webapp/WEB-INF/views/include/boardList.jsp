@@ -12,6 +12,9 @@
 	body::-webkit-scrollbar { width : 5.5px;}
 	body:hover::-webkit-scrollbar-thumb { background: black; }
 	body:hover::-webkit-scrollbar-track { background: lightgray;}
+	.notThisBoard{
+		text-decoration: none;
+	}
 </style>
 <title>게시판 목록</title>
 </head>

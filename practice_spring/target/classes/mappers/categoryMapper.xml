@@ -13,8 +13,9 @@
     <select id="selectCategoryOne" resultType="com.my.vo.categoryVO">
       	SELECT * FROM category where userID=#{userID} and categoryName=#{categoryName}
     </select>
-    <select id="selectCount" resultType="java.lang.Integer">
-      	SELECT postCount FROM category where categoryName=#{categoryName}
+    <!-- 조회수랑 카테고리명 조회용 -->
+    <select id="selectCategoryInfo" resultType="com.my.vo.categoryVO">
+      	SELECT * FROM category where categoryName=#{categoryName}
     </select>
     <insert id="insertCategory" parameterType="com.my.vo.categoryVO">
     	INSERT INTO category(categoryName,categoryNameKor,orderNo,postCount,userID)

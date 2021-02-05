@@ -19,16 +19,35 @@
 			<!-- 카테고리 목록 종료 -->
 		</aside>
 		<section class="boardMain">
-			내용 : ${boardVO.text}<br>
-			
+			<div class="boardView_content">
+				<header><span>${boardVO.name}</span></header>
+				<main>${boardVO.text}</main>
+			</div>
+			<c:if test="${empty sessionScope.user.id}">
+				<div class="boardView_buttonList">
+					<button onclick="goBack()">목록 보기</button>
+				</div>
+			</c:if>
 			<c:if test="${not empty sessionScope.user.id}">
-				<a href="./write_${boardVO.no}?category=${boardVO.category}">
-					<input type="button" value="/boardVO/write로 이동 (update)">
-				</a>
-				<br>
-    			<a href="./delete_${boardVO.no}?category=${boardVO.category}"><input type="button" value="게시글 삭제"></a>
+				<div class="boardView_buttonList">
+					<button onclick="goBack()">목록 보기</button>
+					<button onclick="goUpdate(${boardVO.no},'${boardVO.category}')">게시글 수정</button>
+					<button onclick="goDelete(${boardVO.no},'${boardVO.category}')">게시글 삭제</button>
+				</div>
 			</c:if>
 		</section>
 	</section>
+	
+	<script type="text/javascript">
+		function goUpdate(no,category){
+			location.href="./write_"+no+"?category="+category;
+		}
+		function goDelete(no,category){
+			location.href="./delete_"+no+"?category="+category;
+		}
+		function goBack(){
+			window.history.back();
+		}
+	</script>
 </body>
 </html>

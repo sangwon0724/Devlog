@@ -14,42 +14,132 @@
   position: fixed; top: 8.5vh; left: 0;
   z-index: 3;
   display: flex; flex-direction: column; justify-content: space-around; align-items: center;
+  background-color: #edf0f1;
 }
 .boardList>iframe{
+	width: 13vw;
 	height : 91.5vh;
 	border : none;
-}
-.notThisBoard{
-	text-decoration: none;
 }
 
 /* 실제 작업 화면 */
 .boardMain{
 	width: 87vw; height: auto;
 	min-height: 91.5vh;
-	background-color: blue;/*임시*/
 }
 /* 글쓰기 */
 .boardMain>.write{
 	width : 100%; height: 7vh;
-	display: flex; justify-content: flex-end; align-items: center;
-	padding-right: 3vw;
-	background-color: lightblue;/*임시*/
 }
+.boardMain>.write>.boardName{
+	font-size : 30px; font-weight: bold;
+}
+.boardMain>.write>.writePost{
+	font-size : 17px; font-weight: bold;
+}
+.boardMain>.write.empty{
+	display: flex; justify-content: space-between; align-items: center;
+	padding-left : 5vw;
+}
+.boardMain>.write.not_empty{
+	display: flex; justify-content: space-between; align-items: center;
+	padding : 0 5vw 0 5vw;
+}
+
 /* 게시글 목록 */
-.boardMain>.postList{
+.postList{
 	width : 100%; height: auto; min-height: 84.5vh;
-	background-color: yellowgreen;/*임시*/
+	padding-top : 3vh;
+}
+.postListTable{
+	width : 90%; height: 700px;
+	display : flex; flex-direction : column;
+	margin : 0 auto 0 auto;
+}
+.postListTable>header{
+	width: 100%; height: 8vh; min-height : 53px;
+	display : flex; justify-content : space-between; align-items : center;
+	padding: 0 10px;
+	border-bottom : 2px solid black;
+}
+.postListTable>main{
+	width: 100%; height: auto; min-height: 7vh;
+	display: flex; flex-direction: column;
+}
+.postListTable>main>.post_row{
+	width: 100%; height: 7vh; min-height : 46px;
+	display : flex; justify-content : space-between; align-items : center;
+	padding: 0 10px;
+	border-bottom : 1px solid lightgray;
+}
+
+/* view용 영역 */
+.boardView_content{
+	width : 90%; height: auto; min-height: 81.5vh;
+	margin: 0 auto 0 auto;
+}
+.boardView_content>header{
+	width: 100%; height: 10vh;
+	border-bottom: 3px solid black;
+	display: flex; justify-content: flex-start; align-items: flex-end;
+	padding: 0 0 0.3vw 0.5vw;
+}
+.boardView_content>header>span{
+	font-size: 30px; font-weight: bold;
+}
+.boardView_content>main{
+	width: 95%; height: auto; min-height: 30vh;
+	margin: 0 auto 0 auto;
+}
+.boardView_buttonList{
+	width : 90%; height: 10vh;
+	margin: 0 auto 0 auto;
+	display : flex; justify-content : flex-start; align-items : center;
+}
+.boardView_buttonList>button{
+	width: 10vw; height: 80%;
+	border: none; border-radius : 2em;
+	background-color: lightblue;
+	margin-right: 2vw;
+	cursor: pointer;
+}
+.boardView_buttonList>button:active, .boardView_buttonList>button:focus{
+	outline:none;
 }
 
 /* 게시글 작성 페이지용 섹션*/
 .boardWrite{
-	width: 100%; height: auto;
-	min-height: 91.5vh;
+	width: 100%; height: auto; min-height: 91.5vh;
+}
+.boardWrite>.write__form{
+	width : 100%; height: auto; min-height: 60vh;
+	display: flex; flex-direction : column; justify-content: center;
+}
+.boardWrite>.write__form>input[type="text"]{
+	width : 90%; height: 10vh;
+	margin: 5vh auto 0 auto;
+}
+.boardWrite>.write__form>.editordata{
+	width : 100%; height: 40vh;
+	margin-top: 3vh;
+}
+.boardWrite>.write__form>.boardWrite_button{
+	width: 100%; height: 10vh;
+	margin-top : 3vh;
+	padding-left : 2vw;
+	display: flex; justify-content: flex-start; align-items: center;
+}
+.boardWrite>.write__form>.boardWrite_button>div{
+	width: 10vw; height: 7vh;
+	display : flex; justify-content : center; align-items : center;
+	border: none; border-radius : 2em;
+	background-color: lightblue;
+	margin-right: 2vw;
+	cursor: pointer;
 }
 
 /* 페이징 */
 .page{
-	height: 10vh;
+	width: 87vw; height: 10vh;
 	background-color: white;
 }

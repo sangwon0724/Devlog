@@ -31,8 +31,8 @@ public class categoryDAO implements categoryDAOInterface {
 	}
 	
 	@Override
-	public int selectPostCount(String categoryName) throws Exception {
-		return sqlSession.selectOne("categoryMapper.selectCount",categoryName);
+	public categoryVO selectCategoryInfo(String categoryName) throws Exception {
+		return sqlSession.selectOne("categoryMapper.selectCategoryInfo",categoryName);
 	}
 
 	@Override

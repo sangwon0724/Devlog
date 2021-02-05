@@ -17,11 +17,11 @@
 	<!-- 현재 페이지 -->
     	<fmt:parseNumber var="currentPage" value="${currentPage}"/>
     <!-- 한 페이지당 게시글 수 -->
-    	<fmt:parseNumber var="postCountOnePage" value="1"/>
+    	<fmt:parseNumber var="postCountOnePage" value="10"/>
     <!-- 한 챕터당 페이지 수 -->
     	<fmt:parseNumber var="pageCountOneChapter" value="10"/>
     <!-- 전체 게시글 수 -->
-    	<fmt:parseNumber var="totalPostCount" value="${totalPostCount}"/>
+    	<fmt:parseNumber var="totalPostCount" value="${categoryVO.postCount}"/>
     	
     <!-- 현재 챕터 -->
     	<fmt:parseNumber var="currentChapter" value="${(currentPage-1)/pageCountOneChapter + 1}" type="pattern" pattern="0" integerOnly="true"/>
@@ -56,26 +56,30 @@
 			<!-- 카테고리 목록 종료 -->
 		</aside>
 		<section class="boardMain">
-			<header class="write">
-				<c:if test="${not empty sessionScope.user.id}">
-					<span onclick="goWrite('${category}')" class="cursorPointer">글쓰기 ▶</span>
-				</c:if>
-			</header>
+			<c:if test="${empty sessionScope.user.id}">
+				<header class="write empty">
+					<span class="boardName">${categoryVO.categoryNameKor}</span>
+				</header>
+			</c:if>
+			<c:if test="${not empty sessionScope.user.id}">
+				<header class="write not_empty">
+					<span class="boardName">${categoryVO.categoryNameKor}</span>
+					<span onclick="goWrite('${category}')" class="writePost cursorPointer">글쓰기 ▶</span>
+				</header>
+			</c:if>
 			<main class="postList">
-				게시판 : ${category}<br>
-				<c:forEach items="${boardList}" var="boardList" begin="${loopStart}" end="${loopEnd}">
-			    	<a href="/board/view?no=${boardList.no}">제목 : ${boardList.name}</a><br>
-			    </c:forEach>
-			        현재 페이지 : ${currentPage}<br>
-				한 페이지당 게시글 수 : ${postCountOnePage}<br>
-				한 챕터당 페이지 수 : ${pageCountOneChapter}<br>
-				전체 게시글 수 : ${totalPostCount}<br>
-				
-				현재 챕터 : ${currentChapter}<br>
-				전체페이지 수 : ${totalPageCount}<br>
-				전체 챕터 수 : ${totalChapter} = (${totalPageCount}/${pageCountOneChapter})+1<br>
-				페이지 생성 시작값 : ${loopStart}<br>
-				페이지 생성 종료값 : ${loopEnd}<br>
+				<!-- 전체 내용 -->
+				<div class="postListTable">
+					<header><span>제목</span><span>작성일자</span></header>
+					<main>
+						<c:forEach items="${boardList}" var="boardList" begin="${loopStart}" end="${loopEnd}">
+							<div class="post_row">
+								<span class="title"><a href="/board/view?no=${boardList.no}">${boardList.name}</a></span>
+								<span class="signdate">${boardList.signdate}</span>
+							</div>
+					    </c:forEach>
+					</main>
+				</div>
 			</main>
 			<footer class="page">
 				<form name="page__form" method="get">

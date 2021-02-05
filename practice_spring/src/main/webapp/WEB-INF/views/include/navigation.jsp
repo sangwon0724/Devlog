@@ -11,15 +11,15 @@
 	<c:choose>
 	 	<c:when test="${empty sessionScope.user.id}">
             <div class="navigation noneSession">
-            	<div class="nav_logo"><span onclick="goHome()">로고</span></div>
+            	<div class="nav_logo"><span onclick="goHome()">DevLog</span></div>
             	<div class="nav_blank"></div>
             	<div class="nav_btnSpace_noneSession"><button onclick="goLogin()">로그인</button></div>
 			</div>
         </c:when>
 	 	<c:when test="${not empty sessionScope.user.id}">
             <div class="navigation existSession">
-            	<div class="nav_logo"><span onclick="goHome()">로고</span></div>
-            	<div class="nav_blank"><span>${sessionScope.user.userName} 님 환영합니다.</span></div>
+            	<div class="nav_logo"><span onclick="goHome()">DevLog</span></div>
+            	<div class="nav_blank"><span><b>${sessionScope.user.userName}</b>님 환영합니다.</span></div>
             	<div class="nav_btnSpace_existSession"><button onclick="goMyPage()">마이페이지</button><button onclick="goLogout()">로그아웃</button></div>
 			</div>
         </c:when>
