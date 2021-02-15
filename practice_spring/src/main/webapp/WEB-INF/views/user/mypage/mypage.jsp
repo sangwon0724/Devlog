@@ -19,6 +19,7 @@
 			<!-- 작업목록 종료 -->
 		</aside>
 		<section class="mypageMain">
+			<span>작업을 선택해주시길 바랍니다.</span>
 		</section>
 	</section>
 </body>

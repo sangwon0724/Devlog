@@ -52,6 +52,7 @@
 .nav_btnSpace_noneSession>button{
 	width: 82%; height: 80%;
 	border : none; border-radius : 2em;
+	font-weight : bold;
 	cursor : pointer;
 	background-color: lightblue; /*테스트*/	
 }
@@ -66,6 +67,7 @@
 .nav_btnSpace_existSession>button{
 	width: 43%; height: 80%;
 	border : none; border-radius : 2em;
+	font-weight : bold;
 	cursor : pointer;
 	background-color: lightblue; /*테스트*/	
 }

@@ -30,10 +30,16 @@
 			</script>
 		</c:if>
 		<c:remove var="result" scope="session" />
-		<form name="login__form" method="post">
-			<input type="text" name="id">
-			<input type="password" name="pw" onkeyup="enterkey()">
-			<div class="temp" onclick="login_submit()">로그인</div>
+		<form name="login__form" method="post" class="login__form">
+			<div class="loginLine">
+				<header><span>아이디</span></header>
+				<main><input type="text" name="id"></<main>
+			</div>
+			<div class="loginLine">
+				<header><span>비밀번호</span></header>
+				<main><input type="password" name="pw" onkeyup="enterkey()"></<main>
+			</div>
+			<div class="submitButton" onclick="login_submit()">로그인</div>
 		</form>
 	</section>
     

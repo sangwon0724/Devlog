@@ -36,6 +36,7 @@
 .mypageMain{
 	width: 87vw; height: auto;
 	min-height: 91.5vh;
+	display: flex; justify-content: center; align-items: center;
 	background-color: #ececec;
 }
 /*=================================================================*/

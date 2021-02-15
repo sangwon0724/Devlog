@@ -43,16 +43,24 @@
 				<span>순서 내리기</span>
 				<input type="submit" value="🔽">
 			</form>
-			<form method="post" action="./categoryView">
+			<form method="post" action="./categoryView" name="deleteForm${categoryVO.orderNo}">
 				<input type="hidden" name="category_function" value="deleteList">
 				<input type="hidden" name="orderNo" value=${categoryVO.orderNo}>
 				<input type="hidden" name="categoryName" value="${categoryVO.categoryName}">
 				<span>카테고리 삭제</span>
-				<input type="submit" value="❌">
+				<input type="button" value="❌" onclick="checkDelete(${categoryVO.orderNo},'${categoryVO.categoryNameKor}')">
 			</form>
 		</div>
 		<br>
 	</c:forEach>
 	<div class="blank"></div>  <!-- 공간 짤림 방지용 -->
+	<script type="text/javascript">
+		function checkDelete(orderNo,categoryNameKor){
+			var url = "./checkDelete?orderNo=" + orderNo+ "&categoryNameKor=" + categoryNameKor;
+			var popupX = (document.body.offsetWidth / 2) - (500 / 4);
+			var popupY= (window.screen.height / 2) - 300;
+			open(url, "checkDelete", "width=500, height=300, left="+popupX+", top="+popupY+", resizable=no, scrollbars=no, menubar=no, status=no, location=no, toolbar=no");
+		}
+	</script>
 </body>
 </html>

@@ -60,13 +60,13 @@ public class UserController {
 	//login-get
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() throws Exception {
-		System.out.println("start login from user - method : get");
+		System.out.println("start login - method : get");
 	}
 		
 	//login-post, 세션 부재시 로그인으로 유도
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String postLogin(userVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		System.out.println("start login from user - method : post");
+		System.out.println("start login - method : post");
 				
 		userVO result=userService.selectLogin(vo);
 		HttpSession session = request.getSession();
@@ -85,7 +85,7 @@ public class UserController {
 	//logout-get
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String getLogout(HttpSession session) throws Exception {
-		System.out.println("start logout from user - method : get");
+		System.out.println("start logout - method : get");
 		
 		userService.logout(session);
 	   
@@ -95,13 +95,13 @@ public class UserController {
 	//mypage-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/mypage", method = RequestMethod.GET)
 	public void getMypage(HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		System.out.println("start login from user/mypage - method : get");
+		System.out.println("start user/mypage - method : get");
 	}
 	
 	//changePW-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/changePW", method = RequestMethod.GET)
 	public void getChangePW(Model model) throws Exception {
-		System.out.println("start login from user/changePW - method : get");
+		System.out.println("start user/changePW - method : get");
 		
 		model.addAttribute("myTask", "changePW");
 	}
@@ -109,7 +109,7 @@ public class UserController {
 	//changePW-post, sql - update, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/changePW", method = RequestMethod.POST)
 	public String postChangePW(userVO vo, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
-		System.out.println("start login from user/changePW - method : post");
+		System.out.println("start user/changePW - method : post");
 		
 		HttpSession session = request.getSession();
 		userVO tempUser=(userVO)session.getAttribute("user");
@@ -130,7 +130,7 @@ public class UserController {
 	//categoryList-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryList", method = RequestMethod.GET)
 	public void getCategoryList(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
-		System.out.println("start login from user/categoryList - method : get");
+		System.out.println("start user/categoryList - method : get");
 		
 		model.addAttribute("myTask", "categoryList");
 	}
@@ -138,7 +138,7 @@ public class UserController {
 	//categoryView-get, iframe용, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryView", method = RequestMethod.GET)
 	public void getCategoryView(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
-		System.out.println("start login from user/categoryView - method : get");
+		System.out.println("start user/categoryView - method : get");
 		
 		HttpSession session = request.getSession();
 		userVO temp=(userVO)session.getAttribute("user");
@@ -154,7 +154,7 @@ public class UserController {
 		System.out.println(category_function);
 		System.out.println(orderNo);
 		System.out.println(categoryName);
-		System.out.println("start login from user/categoryView - method : post");
+		System.out.println("start  user/categoryView - method : post");
 		
 		HttpSession session = request.getSession();
 		userVO tempUser=(userVO)session.getAttribute("user");
@@ -185,7 +185,7 @@ public class UserController {
 	//categoryAdd-get, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryAdd", method = RequestMethod.GET)
 	public void getCategoryAdd(HttpServletRequest request, RedirectAttributes rttr, Model model) throws Exception {
-		System.out.println("start login from user/categoryAdd - method : get");
+		System.out.println("start  user/categoryAdd - method : get");
 		
 		model.addAttribute("myTask", "categoryAdd");
 	}
@@ -193,7 +193,7 @@ public class UserController {
 	//categoryAdd-post, sql - insert, com.my.util.urlInterceptor 적용
 	@RequestMapping(value = "/mypage/categoryAdd", method = RequestMethod.POST)
 	public String postCategoryAdd(HttpServletRequest request, RedirectAttributes rttr, categoryVO vo) throws Exception {
-		System.out.println("start login from user/categoryAdd - method : post");
+		System.out.println("start user/categoryAdd - method : post");
 		
 		HttpSession session = request.getSession();
 		userVO tempUser=(userVO)session.getAttribute("user");
@@ -209,5 +209,11 @@ public class UserController {
 		//추가하기
 		categoryService.insertCategory(vo);
 		return "redirect:/user/mypage/categoryList";
+	}
+	
+	//카테고리 삭제 재확인
+	@RequestMapping(value = "/mypage/checkDelete", method = RequestMethod.GET)
+	public void getCheckDelete() throws Exception {
+		System.out.println("start user/categoryAdd - method : get");
 	}
 }

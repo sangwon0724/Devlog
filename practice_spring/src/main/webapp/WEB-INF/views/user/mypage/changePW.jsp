@@ -29,7 +29,7 @@
 					<header><span>비밀번호 재확인</span></header>
 					<main><input type="password" name="pwcheck"></<main>
 				</div>
-			<div class="submitButton" onclick="changePW_submit()">비밀번호 변경</div>
+				<div class="submitButton" onclick="changePW_submit()">비밀번호 변경</div>
 			</form>
 		</section>
     
