@@ -4,5 +4,5 @@
 .homeMain{
 	width: 87vw; height: auto;
 	min-height: 91.5vh;
-	background-color: blue;
+	display: flex; justify-content: center; align-items: center;
 }

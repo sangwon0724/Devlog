@@ -88,7 +88,12 @@
 					<!-- 총 페이지 수가 한 챕터당 페이지 수보다 작거나 같은 경우 -->
 					<c:if test="${totalPageCount<=pageCountOneChapter}">
 					      <c:forEach var="i" begin="1" end="${totalPageCount}" step="1">
-								<div onclick="setPage(${i})">${i}</div>
+					      		<c:if test="${param.page eq i}">
+					      			<div class="gray">${i}</div>
+					      		</c:if>
+					      		<c:if test="${param.page ne i}">
+					      			<div onclick="setPage(${i})">${i}</div>
+					      		</c:if>
 					      </c:forEach>
 					</c:if>
 					<!-- 총 페이지 수가 한 챕터당 페이지 수보다 큰 경우 -->
@@ -96,23 +101,38 @@
 						<!-- 챕터가 1인 경우 -->
 						<c:if test="${currentChapter == 1}">
 					      		<c:forEach var="i" begin="1" end="10" step="1">
-									<div onclick="setPage(${i})">${i}</div>
+									<c:if test="${param.page eq i}">
+					      				<div class="gray">${i}</div>
+					      			</c:if>
+					      			<c:if test="${param.page ne i}">
+					      				<div onclick="setPage(${i})">${i}</div>
+					      			</c:if>
 					      		</c:forEach>
-								<div onclick="setPage(11)">다음</div>
+								<div class="changeChapter" onclick="setPage(11)">다음</div>
 						</c:if>
 						<!-- 챕터가 1보다 크고 현재 챕터가 전체 챕터보다 낮은 경우 -->
 						<c:if test="${currentChapter>1 && currentChapter<totalChapter}">
-								<div onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
+								<div class="changeChapter" onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
 					      		<c:forEach var="i" begin="${(currentChapter-1)*pageCountOneChapter+1}" end="${currentChapter*pageCountOneChapter}" step="1">
-									<div onclick="setPage(${i})">${i}</div>
+									<c:if test="${param.page eq i}">
+					      				<div class="gray">${i}</div>
+					      			</c:if>
+					      			<c:if test="${param.page ne i}">
+					      				<div onclick="setPage(${i})">${i}</div>
+					      			</c:if>
 					      		</c:forEach>
-								<div onclick="setPage(${pageCountOneChapter*currentChapter+1})">다음</div>
+								<div class="changeChapter" onclick="setPage(${pageCountOneChapter*currentChapter+1})">다음</div>
 						</c:if>
 						<!-- 챕터가 1보다 크고 전체 챕터인 경우 -->
 						<c:if test="${currentChapter>1 && currentChapter==totalChapter}">
-								<div onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
+								<div class="changeChapter" onclick="setPage(${pageCountOneChapter*(currentChapter-1)})">이전</div>
 					      		<c:forEach var="i" begin="${(currentChapter-1)*pageCountOneChapter+1}" end="${totalPageCount}" step="1">
-									<div onclick="setPage(${i})">${i}</div>
+									<c:if test="${param.page eq i}">
+					      				<div class="gray">${i}</div>
+					      			</c:if>
+					      			<c:if test="${param.page ne i}">
+					      				<div onclick="setPage(${i})">${i}</div>
+					      			</c:if>
 					      		</c:forEach>
 						</c:if>
 					</c:if>

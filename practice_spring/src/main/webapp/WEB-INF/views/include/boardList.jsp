@@ -7,11 +7,12 @@
 	<meta charset="utf-8">
 <style type="text/css">
 	a {margin: 10px auto 0 auto;}
-	body {display: inline-block; overflow-y:hidden;}
+	body {display: inline-block; overflow-y:hidden; padding-left: 15px;}
 	body:hover {overflow-y:scroll;}
 	body::-webkit-scrollbar { width : 5.5px;}
-	body:hover::-webkit-scrollbar-thumb { background: black; }
+	body:hover::-webkit-scrollbar-thumb { background: gray; }
 	body:hover::-webkit-scrollbar-track { background: lightgray;}
+	a {color : black;}
 	.notThisBoard{
 		text-decoration: none;
 	}

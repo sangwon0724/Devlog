@@ -20,11 +20,17 @@
 			<!-- 작업목록 종료 -->
 		</aside>
 		<section class="mypageMain">
-			<form name="changePW__form" method="post">
-			<input type="password" name="pw">
-			<input type="password" name="pwcheck">
-			<div class="temp" onclick="changePW_submit()">비밀번호 변경</div>
-		</form>
+			<form name="changePW__form" method="post" class="changePW__form">
+				<div class="changePWLine">
+					<header><span>변경할 비밀번호</span></header>
+					<main><input type="password" name="pw"></<main>
+				</div>
+				<div class="changePWLine">
+					<header><span>비밀번호 재확인</span></header>
+					<main><input type="password" name="pwcheck"></<main>
+				</div>
+			<div class="submitButton" onclick="changePW_submit()">비밀번호 변경</div>
+			</form>
 		</section>
     
 	</section>

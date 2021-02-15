@@ -19,10 +19,16 @@
 			<!-- 작업목록 종료 -->
 		</aside>
 		<section class="mypageMain">
-			<form method="post" name="categoryAdd_form" >
-				<input type="text" name="categoryName" placeholder="영어로만 작성해주세요."><Br>
-				<input type="text" name="categoryNameKor"><Br>
-				<div class="temp" onclick="categoryAdd_submit()">등록</div>
+			<form name="categoryAdd_form" method="post" class="categoryAdd_form">
+				<div class="categoryAddLine">
+					<header><span>분류 코드</span></header>
+					<main><input type="text" name="categoryName" placeholder="영어로만 작성해주세요."></<main>
+				</div>
+				<div class="categoryAddLine">
+					<header><span>카테고리명</span></header>
+					<main><input type="text" name="categoryNameKor"></<main>
+				</div>
+				<div class="submitButton" onclick="categoryAdd_submit()">등록</div>
 			</form>
 		</section>
 	</section>
