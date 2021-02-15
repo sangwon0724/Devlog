@@ -49,6 +49,7 @@
             <mapping path="/user/mypage/categoryList"/>
             <mapping path="/user/mypage/categoryView"/>
             <mapping path="/user/mypage/categoryAdd"/>
+            <mapping path="/user/mypage/checkDelete"/>
             <beans:ref bean="authenticationInterceptor"/>
         </interceptor>
     </interceptors>
